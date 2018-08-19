@@ -26,7 +26,7 @@ public class GameMap
         //initialize grid
         grid = new Area[x][y];
 
-        //assign Area's to grid
+        //assign Areas to grid
         //for every row
         for(int row = 0;row < y; row++)
         {
