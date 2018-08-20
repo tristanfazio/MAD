@@ -8,6 +8,6 @@ public class Wilderness extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_Wilderness);
+        setContentView(R.layout.activity_wilderness);
     }
 }
