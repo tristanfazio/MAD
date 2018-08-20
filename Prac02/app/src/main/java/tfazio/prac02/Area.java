@@ -10,17 +10,20 @@ public class Area {
     //default constructor
     public Area()
     {
+
         town = true;
     }
 
     //alternate constructor with town/wilderness indication
     public Area(Boolean isTown)
     {
+
         boolean town = isTown;
     }
 
     public void addItem(Item inItem)
     {
+
         items.add(inItem);
     }
 }

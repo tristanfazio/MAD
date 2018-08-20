@@ -77,4 +77,13 @@ public class GameMap
         grid[1][0] = new Area(false); //bottom right
         grid[1][1] = new Area(true); //top right
     }
+
+    //take a set of coords and check if they are a valid grid position
+    public boolean validateCoords(int x,int y)
+    {
+        boolean check = false;
+        //check if coords exist in game map
+        //if yes return true, if no return false
+        return check;
+    }
 }

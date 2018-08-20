@@ -12,6 +12,8 @@ public class Navigation extends AppCompatActivity {
     //game objects
     GameMap gameMap;
     Player player;
+    int[] playerPos;
+    int[] newPlayerPos;
 
     //UI objects
     private Button northButton;
@@ -49,8 +51,16 @@ public class Navigation extends AppCompatActivity {
             public void onClick(View v)
             {
                 //validate movement
-                //if valid
-                //move player
+                if(gameMap.validateCoords(playerPos[0],playerPos[1]))
+                {
+                    //if valid
+                    //move player
+                }
+                else
+                {
+                    //prompt invalid movement to player
+                }
+
             }
         });
         southButton.setOnClickListener(new View.OnClickListener()
@@ -58,9 +68,18 @@ public class Navigation extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
+
+
                 //validate movement
-                //if valid
-                //move player
+                if(gameMap.validateCoords(playerPos[0],playerPos[1]))
+                {
+                    //if valid
+                    //move player
+                }
+                else
+                {
+                    //prompt invalid movement to player
+                }
             }
         });
         eastButton.setOnClickListener(new View.OnClickListener()
@@ -69,8 +88,15 @@ public class Navigation extends AppCompatActivity {
             public void onClick(View v)
             {
                 //validate movement
-                //if valid
-                //move player
+                if(gameMap.validateCoords(playerPos[0],playerPos[1]))
+                {
+                    //if valid
+                    //move player
+                }
+                else
+                {
+                    //prompt invalid movement to player
+                }
             }
         });
         westButton.setOnClickListener(new View.OnClickListener()
@@ -79,8 +105,15 @@ public class Navigation extends AppCompatActivity {
             public void onClick(View v)
             {
                 //validate movement
-                //if valid
+                if(gameMap.validateCoords(playerPos[0],playerPos[1]))
+                {
+                    //if valid
                     //move player
+                }
+                else
+                {
+                    //prompt invalid movement to player
+                }
             }
         });
 

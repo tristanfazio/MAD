@@ -9,9 +9,10 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/navigationLayout"
-        android:layout_width="385dp"
+        android:layout_width="344dp"
         android:layout_height="475dp"
-        android:background="?android:attr/colorPrimary">
+        android:background="?android:attr/colorPrimary"
+        tools:layout_editor_absoluteX="8dp">
 
         <Button
             android:id="@+id/northButton"
@@ -55,7 +56,8 @@
             android:text="E"
             app:layout_constraintBottom_toTopOf="@+id/southButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/northButton" />
+            app:layout_constraintTop_toBottomOf="@+id/northButton"
+            app:layout_constraintVertical_bias="0.461" />
 
         <Button
             android:id="@+id/westButton"
@@ -69,7 +71,8 @@
             android:text="W"
             app:layout_constraintBottom_toTopOf="@+id/southButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/northButton" />
+            app:layout_constraintTop_toBottomOf="@+id/northButton"
+            app:layout_constraintVertical_bias="0.461" />
 
         <TextView
             android:id="@+id/playerposTextView"
@@ -86,17 +89,19 @@
             app:layout_constraintBottom_toTopOf="@+id/southButton"
             app:layout_constraintEnd_toStartOf="@+id/eastButton"
             app:layout_constraintStart_toEndOf="@+id/westButton"
-            app:layout_constraintTop_toBottomOf="@+id/northButton" />
+            app:layout_constraintTop_toBottomOf="@+id/northButton"
+            app:layout_constraintVertical_bias="0.464" />
     </android.support.constraint.ConstraintLayout>
 
     <TableRow
         android:id="@+id/statusbarTable"
-        android:layout_width="385dp"
+        android:layout_width="344dp"
         android:layout_height="43dp"
         android:gravity="fill_horizontal"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/navigationLayout"
-        tools:background="@android:color/holo_orange_light">
+        tools:background="@android:color/holo_orange_light"
+        tools:layout_editor_absoluteX="8dp">
 
         <TextView
             android:id="@+id/cashLabel"
