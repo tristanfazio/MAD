@@ -50,16 +50,6 @@ public class Navigation extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                //validate movement
-                if(gameMap.validateCoords(playerPos[0],playerPos[1]))
-                {
-                    //if valid
-                    //move player
-                }
-                else
-                {
-                    //prompt invalid movement to player
-                }
 
             }
         });
@@ -70,16 +60,7 @@ public class Navigation extends AppCompatActivity {
             {
 
 
-                //validate movement
-                if(gameMap.validateCoords(playerPos[0],playerPos[1]))
-                {
-                    //if valid
-                    //move player
-                }
-                else
-                {
-                    //prompt invalid movement to player
-                }
+
             }
         });
         eastButton.setOnClickListener(new View.OnClickListener()
@@ -136,5 +117,20 @@ public class Navigation extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    private void movePlayer(int x, int y)
+    {
+        //validate position
+        if(gameMap.validateCoords(x,y))
+        {
+            //if valid
+            //move player
+        }
+        else
+        {
+            //prompt invalid movement to player
+        }
     }
 }

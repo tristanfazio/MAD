@@ -9,8 +9,8 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/navigationLayout"
-        android:layout_width="410dp"
-        android:layout_height="607dp"
+        android:layout_width="415dp"
+        android:layout_height="611dp"
         android:background="?android:attr/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/statusbarTable"
         app:layout_constraintEnd_toEndOf="parent"
@@ -126,7 +126,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal"
-            android:text="00" />
+            android:text="00"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/healthLabel"
@@ -143,7 +144,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal"
-            android:text="100" />
+            android:text="100"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/equipLabel"
@@ -160,12 +162,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal"
-            android:text="00" />
+            android:text="00"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/optionsButton"
             android:layout_width="match_parent"
-            android:layout_height="38dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@android:drawable/ic_menu_add"
             android:gravity="center_vertical|center_horizontal" />
@@ -173,7 +176,7 @@
         <Button
             android:id="@+id/resetButton"
             android:layout_width="match_parent"
-            android:layout_height="38dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@android:drawable/ic_menu_rotate"
             android:gravity="center_vertical|center_horizontal" />
