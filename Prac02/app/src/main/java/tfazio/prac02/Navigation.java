@@ -137,7 +137,7 @@ public class Navigation extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             // 2. Chain together various setter methods to set the dialog characteristics
             builder.setMessage("You cannot move in that direction")
-                    .setTitle("Uh oh");
+                    .setTitle("Uh Oh!");
             // Add the buttons
             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
@@ -146,6 +146,7 @@ public class Navigation extends AppCompatActivity {
             });
             // 3. Get the AlertDialog from create()
             AlertDialog dialog = builder.create();
+            dialog.show();
         }
     }
 
