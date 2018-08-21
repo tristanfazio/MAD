@@ -10,17 +10,14 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/navigationLayout"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="500dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/background_light"
-        app:layout_constraintBottom_toTopOf="@+id/statusbarTable"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:targetApi="lollipop">
@@ -34,7 +31,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="132dp"
+            android:layout_marginTop="16dp"
             android:gravity="center_vertical|center_horizontal"
             android:text="N"
             app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +43,7 @@
             style="@style/Base.Widget.AppCompat.Button.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="132dp"
+            android:layout_marginBottom="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
@@ -63,8 +60,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="64dp"
-            android:layout_marginRight="64dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:layout_marginTop="8dp"
             android:gravity="center_vertical|center_horizontal"
             android:text="E"
@@ -78,8 +75,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginLeft="64dp"
-            android:layout_marginStart="64dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:gravity="center_vertical|center_horizontal"
             android:text="W"
@@ -101,29 +98,33 @@
             android:text="TextView"
             app:layout_constraintBottom_toTopOf="@+id/southButton"
             app:layout_constraintEnd_toStartOf="@+id/eastButton"
+            app:layout_constraintHorizontal_bias="0.506"
             app:layout_constraintStart_toEndOf="@+id/westButton"
             app:layout_constraintTop_toBottomOf="@+id/northButton" />
     </android.support.constraint.ConstraintLayout>
 
     <TableRow
         android:id="@+id/statusbarTable"
-        android:layout_width="0dp"
-        android:layout_height="33dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginRight="1dp"
-        android:layout_marginStart="1dp"
+        android:layout_width="344dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="#ffd54f"
         android:gravity="fill_horizontal"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/navigationLayout"
+        app:layout_constraintVertical_bias="1.0">
 
         <TextView
             android:id="@+id/cashLabel"
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal"
@@ -132,7 +133,6 @@
 
         <TextView
             android:id="@+id/cashNo"
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal"
@@ -140,7 +140,7 @@
 
         <TextView
             android:id="@+id/healthLabel"
-            android:layout_width="match_parent"
+            android:layout_width="362dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal"
@@ -149,7 +149,6 @@
 
         <TextView
             android:id="@+id/healthNo"
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal"
@@ -157,7 +156,6 @@
 
         <TextView
             android:id="@+id/equipLabel"
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal"
@@ -166,7 +164,6 @@
 
         <TextView
             android:id="@+id/equipNo"
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal"
@@ -174,7 +171,6 @@
 
         <Button
             android:id="@+id/optionsButton"
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@android:drawable/ic_menu_add"
@@ -182,7 +178,6 @@
 
         <Button
             android:id="@+id/resetButton"
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@android:drawable/ic_menu_rotate"
