@@ -1,4 +1,6 @@
 package tfazio.prac02;
+import android.util.Log;
+
 import java.util.List;
 
 public class Player
@@ -15,6 +17,8 @@ public class Player
     //default constructor
     public Player()
     {
+        Log.d("DEBUG","Creating Player");
+
         updatePosition(0,0);
         cash = 100;
         health = 100;
@@ -24,6 +28,7 @@ public class Player
     //getters
     public int[] getPosition()
     {
+        Log.d("DEBUG","Retrieving player position: " + colLocation + ',' + rowLocation);
 
         return (new int[]{colLocation,rowLocation});
     }
@@ -31,6 +36,8 @@ public class Player
     //setters
     public void updatePosition(int x, int y)
     {
+        Log.d("DEBUG","Updating Player position to: " + x +"," +y);
+
         colLocation = x;
         rowLocation = y;
     }

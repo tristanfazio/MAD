@@ -1,5 +1,7 @@
 package tfazio.prac02;
 
+import android.util.Log;
+
 public class GameMap
 {
 
@@ -37,8 +39,9 @@ public class GameMap
     {
         //initialize grid
         grid = new Area[x][y];
-        xMax = x;
-        yMax = y;
+        xMax = x-1;
+        yMax = y-1;
+        boolean toggle = true;
 
         //assign Areas to grid
         //for every row
@@ -48,7 +51,17 @@ public class GameMap
             for(int col = 0;col<x;col++)
             {
                 //assign a newly constructed area
-                grid[x][y] = new Area();
+                Log.d("DEBUG","Targeting: "+ col+","+row);
+
+                grid[x][y] = new Area(toggle);
+                if(toggle)
+                {
+                    toggle = false;
+                }
+                else
+                {
+                    toggle = true;
+                }
             }
         }
     }
@@ -56,12 +69,13 @@ public class GameMap
     //take in grid dimensions, initialize grid 2D array, assign a new Area to each grid position
     private void createTestGrid()
     {
+        Log.d("DEBUG","Creating Test Grid of size (2,2)");
         //initialize grid
         grid = new Area[2][2];
 
         //set dimensions
-        xMax = 2;
-        yMax = 2;
+        xMax = 1;
+        yMax = 1;
 
         /*
         _____________
@@ -72,18 +86,29 @@ public class GameMap
         */
 
         //assign Area's to grid
+        Log.d("DEBUG","Targeting: 0,0");
         grid[0][0] = new Area(true); //bottom left
+        Log.d("DEBUG","Targeting: 0,1");
         grid[0][1] = new Area(false);  //top left
+        Log.d("DEBUG","Targeting: 1,0");
         grid[1][0] = new Area(false); //bottom right
+        Log.d("DEBUG","Targeting: 1,1");
         grid[1][1] = new Area(true); //top right
     }
 
     //take a set of coords and check if they are a valid grid position
     public boolean validateCoords(int x,int y)
     {
-        boolean check = false;
         //check if coords exist in game map
         //if yes return true, if no return false
+        Log.d("DEBUG","validating coords: " + x + "," + y);
+
+        boolean check = false;
+        if((x<=xMax && x>=0) && (yMax>=y && y>=0))
+        {
+            check = true;
+        }
+
         return check;
     }
 }
