@@ -21,8 +21,8 @@ public class Player
 
         updatePosition(0,0);
         cash = 100;
-        health = 100;
-        equipmentMass = 0;
+        health = 100.0;
+        equipmentMass = 0.0;
     }
 
     //getters
@@ -33,6 +33,12 @@ public class Player
         return (new int[]{colLocation,rowLocation});
     }
 
+    public double getHealth()
+    {
+
+        return health;
+    }
+
     //setters
     public void updatePosition(int x, int y)
     {
@@ -40,12 +46,16 @@ public class Player
 
         colLocation = x;
         rowLocation = y;
+
+        reduceHealth();
     }
 
     public void reduceHealth()
     {
         //update health based on formula, always return 0 if drops belows
-        health = Math.max(0.0, health - 5.0 - (equipmentMass / 2.0));
+        double newHealth = Math.max(0.0, health - 5.0 - (equipmentMass / 2.0));
+        Log.d("DEBUG","Reducing player health from " + health + " to " + newHealth);
+        health = newHealth;
     }
 
     public void increaseHealth()

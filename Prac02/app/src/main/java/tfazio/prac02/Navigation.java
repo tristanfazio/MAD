@@ -2,6 +2,7 @@ package tfazio.prac02;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,8 @@ public class Navigation extends AppCompatActivity {
     private Button resetButton;
     private Button optionsButton;
     private TextView playerposTextView;
+    private TextView healthTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -41,6 +44,7 @@ public class Navigation extends AppCompatActivity {
         resetButton = (Button)findViewById(R.id.resetButton);
         optionsButton = (Button)findViewById(R.id.optionsButton);
         playerposTextView = (TextView)findViewById(R.id.playerposTextView);
+        healthTextView = (TextView)findViewById(R.id.healthNo);
 
         // create grid, no args = 2x2 test map, x,y args for custom grid
         gameMap = new GameMap();
@@ -108,7 +112,7 @@ public class Navigation extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-
+                restart(v);
             }
         });
 
@@ -128,6 +132,7 @@ public class Navigation extends AppCompatActivity {
             player.updatePosition(x,y);
             //update the current area
             updateAreaText();
+            healthTextView.setText(Double.toString(player.getHealth()));
         }
         else
         {
@@ -164,7 +169,12 @@ public class Navigation extends AppCompatActivity {
         {
             playerposTextView.setText("Wilderness");
             Log.d("DEBUG","Set text to wilderness");
-
         }
+    }
+
+    public void restart(View view)
+    {
+        Intent intent = new Intent(this, Navigation.class);
+        startActivity(intent);
     }
 }

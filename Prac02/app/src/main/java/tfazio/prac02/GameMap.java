@@ -38,6 +38,8 @@ public class GameMap
     private void createGrid(int x, int y)
     {
         //initialize grid
+        Log.d("DEBUG","Creating map grid of size ("+ x +","+y+")");
+
         grid = new Area[x][y];
         xMax = x-1;
         yMax = y-1;
@@ -53,7 +55,7 @@ public class GameMap
                 //assign a newly constructed area
                 Log.d("DEBUG","Targeting: "+ col+","+row);
 
-                grid[x][y] = new Area(toggle);
+                grid[col][row] = new Area(toggle);
                 if(toggle)
                 {
                     toggle = false;
