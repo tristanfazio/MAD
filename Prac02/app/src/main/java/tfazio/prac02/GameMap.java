@@ -32,6 +32,16 @@ public class GameMap
         //get area from supplied coordinates of gameMap
         return grid[x][y];
     }
+
+    public int getxMax()
+    {
+        return xMax;
+    }
+
+    public int getyMax()
+    {
+        return yMax;
+    }
     //SETTERS
 
     //take in grid dimensions, initialize grid 2D array, assign a new Area to each grid position
@@ -90,12 +100,27 @@ public class GameMap
         //assign Area's to grid
         Log.d("DEBUG","Targeting: 0,0");
         grid[0][0] = new Area(true); //bottom left
+        grid[0][0].addItem(new Equipment("Sword","A sharp blade",10,5));
+        grid[0][0].addItem(new Equipment("Helmet","Protect yo head",8,3));
+        grid[0][0].addItem(new Food("Cake","A Delicious snack",10,15));
+
         Log.d("DEBUG","Targeting: 0,1");
         grid[0][1] = new Area(false);  //top left
+        grid[0][1].addItem(new Equipment("Jade Necklace","A gleaming necklace, that radiates a magical essence",50,3));
+        grid[0][1].addItem(new Equipment("Torn Leather Boots","Once a sturdy pair of foot wear, these tattered shoes have been tossed aside",1,2));
+        grid[0][1].addItem(new Food("Apple","Red and crisp",3,5));
+
         Log.d("DEBUG","Targeting: 1,0");
         grid[1][0] = new Area(false); //bottom right
+        grid[1][0].addItem(new Equipment("Gem","A gleaming stone",40,4));
+        grid[1][0].addItem(new Equipment("Jade Transcript","A book describing the legend of the Jade Idol. May contain instructions on activating its power",20,4));
+        grid[0][1].addItem(new Food("Apple","Red and crisp",3,5));
+
         Log.d("DEBUG","Targeting: 1,1");
         grid[1][1] = new Area(true); //top right
+        grid[1][1].addItem(new Equipment("Jade Idol","A mystical statue",50,10));
+        grid[1][1].addItem(new Equipment("Sleeping Gear","For resting in the wilderness",15,5));
+        grid[1][1].addItem(new Food("Cake","A Delicious snack",5,10));
     }
 
     //take a set of coords and check if they are a valid grid position

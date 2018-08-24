@@ -1,6 +1,7 @@
 package tfazio.prac02;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Area {
@@ -13,6 +14,8 @@ public class Area {
     public Area()
     {
         town = true;
+        items = new ArrayList<Item>();
+
         Log.d("DEBUG","Creating Area. Town: " + town);
 
     }
@@ -21,6 +24,7 @@ public class Area {
     public Area(Boolean isTown)
     {
         town = isTown;
+        items = new ArrayList<Item>();
         Log.d("DEBUG","Creating Area. Town: " + town);
     }
 
