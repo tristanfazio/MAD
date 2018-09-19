@@ -1,4 +1,4 @@
-package ...;
+package tfazio.prac03;
 
 import java.util.Random;
 

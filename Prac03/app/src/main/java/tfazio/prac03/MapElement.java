@@ -1,4 +1,4 @@
-package ...;
+package tfazio.prac03;
 
 /**
  * Represents a single grid square in the map. Each map element has both terrain and an optional
