@@ -1,4 +1,4 @@
-package edu.curtin.comp2008.alliesandenemies;
+package tfazio.prac04;
 
 /**
  * Represents one of the various factions.
