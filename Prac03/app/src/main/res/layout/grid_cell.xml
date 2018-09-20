@@ -14,8 +14,8 @@
         app:layout_constraintHeight_percent="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constrainRight_toLeftOf="@id/cellTopRight"
-        app:layout_constrainBottom_toTopof="@id/cellBottomLeft"/>
+        app:layout_constraintRight_toLeftOf="@id/cellTopRight"
+        app:layout_constraintBottom_toTopOf="@id/cellBottomLeft"/>
 
     <ImageView
         android:id="@+id/cellTopRight"
@@ -28,7 +28,7 @@
         app:layout_constraintLeft_toRightOf="@+id/cellTopLeft"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constrainBottom_toTopof="@id/cellBottomRight"/>
+        app:layout_constraintBottom_toTopOf="@id/cellBottomRight"/>
 
     <ImageView
         android:id="@+id/cellBottomLeft"
@@ -41,7 +41,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cellTopLeft"
         app:layout_constraintRight_toLeftOf="@id/cellBottomRight"
-        app:layout_constrainBottom_toTopof="parent"/>
+        app:layout_constraintBottom_toTopOf="parent"/>
 
     <ImageView
         android:id="@+id/cellBottomRight"
@@ -57,7 +57,7 @@
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <ImageView
-        android:id="@+id/cellWhole"
+        android:id="@+id/cellStructure"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintWidth_default="percent"
