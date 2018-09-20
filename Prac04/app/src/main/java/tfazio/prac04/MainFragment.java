@@ -1,4 +1,4 @@
-package edu.curtin.comp2008.alliesandenemies;
+package tfazio.prac04;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +13,10 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import edu.curtin.comp2008.alliesandenemies.R;
+import tfazio.prac04.Faction;
+import tfazio.prac04.FactionList;
 
 public class MainFragment extends Fragment
 {

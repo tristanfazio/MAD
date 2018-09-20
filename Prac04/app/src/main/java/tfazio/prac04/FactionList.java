@@ -1,7 +1,9 @@
-package edu.curtin.comp2008.alliesandenemies;
+package tfazio.prac04;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import tfazio.prac04.Faction;
 
 /**
  * Maintains the overall dataset; specifically of course all the different factions.
