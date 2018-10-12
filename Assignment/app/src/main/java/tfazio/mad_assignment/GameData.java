@@ -2,6 +2,8 @@ package tfazio.mad_assignment;
 
 import android.util.Log;
 
+import java.util.Random;
+
 public class GameData
 {
 
@@ -9,22 +11,26 @@ public class GameData
     Area[][] grid;
     Player player;
     static GameData instance;
-    int xMax;
-    int yMax;
+    private int numTowns;
+    private int numWild;
+    private int xMax;
+    private int yMax;
+    Random random = new Random();
 
     //default constructor, creates a testgrid
     public GameData()
     {
         //initialize a default 2x2 grid
-        createTestGrid();
+        createGrid(2,2);
         player = new Player();
+        instance = this;
     }
 
-    //alternate constructor with grid variables
     public GameData(int x, int y)
     {
-        //initialize a grid of x by y
+        //initialize a default 2x2 grid
         createGrid(x,y);
+        player = new Player();
         instance = this;
     }
 
@@ -53,12 +59,12 @@ public class GameData
     private void createGrid(int x, int y)
     {
         //initialize grid
-        Log.d("DEBUG","Creating map grid of size ("+ x +","+y+")");
+        Log.d("DEBUG","\nCreating map grid of size ("+ x +","+y+")");
 
         grid = new Area[x][y];
         xMax = x-1;
         yMax = y-1;
-        boolean toggle = true;
+        boolean isTown;
 
         //assign Areas to grid
         //for every row
@@ -68,64 +74,20 @@ public class GameData
             for(int col = 0;col<x;col++)
             {
                 //assign a newly constructed area
-                Log.d("DEBUG","Targeting: "+ col+","+row);
-
-                grid[col][row] = new Area(toggle);
-                if(toggle)
+                Log.d("DEBUG","\n   Targeting: "+ col+","+row);
+                isTown = randomArea();
+                grid[col][row] = new Area(isTown);
+                //update trackers
+                if(isTown)
                 {
-                    toggle = false;
+                    numTowns++;
                 }
                 else
                 {
-                    toggle = true;
+                    numWild++;
                 }
             }
         }
-    }
-
-    //take in grid dimensions, initialize grid 2D array, assign a new Area to each grid position
-    private void createTestGrid()
-    {
-        Log.d("DEBUG","Creating Test Grid of size (2,2)");
-        //initialize grid
-        grid = new Area[2][2];
-
-        //set dimensions
-        xMax = 1;
-        yMax = 1;
-
-        /*
-        _____________
-
-        | 0,1 | 1,1 |
-        | 0,0 | 1,0 |
-        _____________
-        */
-
-        //assign Area's to grid
-        Log.d("DEBUG","Targeting: 0,0");
-        grid[0][0] = new Area(true); //bottom left
-        grid[0][0].addItem(new Equipment("Sword","A sharp blade",10,5));
-        grid[0][0].addItem(new Equipment("Helmet","Protect yo head",8,3));
-        grid[0][0].addItem(new Food("Cake","A Delicious snack",10,15));
-
-        Log.d("DEBUG","Targeting: 0,1");
-        grid[0][1] = new Area(false);  //top left
-        grid[0][1].addItem(new Equipment("Jade Necklace","A gleaming necklace, that radiates a magical essence",50,3));
-        grid[0][1].addItem(new Equipment("Torn Leather Boots","Once a sturdy pair of foot wear, these tattered shoes have been tossed aside",1,2));
-        grid[0][1].addItem(new Food("Apple","Red and crisp",3,5));
-
-        Log.d("DEBUG","Targeting: 1,0");
-        grid[1][0] = new Area(false); //bottom right
-        grid[1][0].addItem(new Equipment("Gem","A gleaming stone",40,4));
-        grid[1][0].addItem(new Equipment("Jade Transcript","A book describing the legend of the Jade Idol. May contain instructions on activating its power",20,4));
-        grid[0][1].addItem(new Food("Apple","Red and crisp",3,5));
-
-        Log.d("DEBUG","Targeting: 1,1");
-        grid[1][1] = new Area(true); //top right
-        grid[1][1].addItem(new Equipment("Jade Idol","A mystical statue",50,10));
-        grid[1][1].addItem(new Equipment("Sleeping Gear","For resting in the wilderness",15,5));
-        grid[1][1].addItem(new Food("Cake","A Delicious snack",5,10));
     }
 
     //take a set of coords and check if they are a valid grid position
@@ -142,5 +104,45 @@ public class GameData
         }
 
         return check;
+    }
+
+    //randomize the next area being a town or wilderness, keeps the gap from getting too large
+    private boolean randomArea()
+    {
+        boolean nextArea = true;
+
+        //check if there is too many of one area
+        Log.d("DEBUG","\n   Area Diff = " + (Math.abs(numTowns-numWild)));
+
+        if(Math.abs(numTowns-numWild)>2)
+        {
+
+            //one area now has a atleast 3 more than the other
+            //set next area to the lowest area
+            if(numWild>numTowns)
+            {
+                //wilderness is greater than towns
+                //next area is TRUE for town
+                nextArea = true;
+                Log.d("DEBUG","\n   Too many wilderness, defaulting to town");
+            }
+            else if(numTowns>numWild)
+            {
+                //towns is greater than wilderness
+                //next area is FALSE for town
+                nextArea = false;
+                Log.d("DEBUG","\n   Too many town, defaulting to wilderness");
+
+            }
+        }
+        else
+        {
+            //the gap isn't too large, pick a random for next area
+            nextArea = random.nextBoolean();
+            Log.d("DEBUG","\n   Reasonable difference, randomizing");
+
+        }
+
+        return nextArea;
     }
 }

@@ -19,7 +19,8 @@ public class Player
     {
         Log.d("DEBUG","Creating Player");
 
-        updatePosition(0,0);
+        colLocation = 0;
+        rowLocation = 0;
         cash = 100;
         health = 100.0;
         equipmentMass = 0.0;
@@ -29,13 +30,11 @@ public class Player
     public int[] getPosition()
     {
         Log.d("DEBUG","Retrieving player position: " + colLocation + ',' + rowLocation);
-
         return (new int[]{colLocation,rowLocation});
     }
 
     public double getHealth()
     {
-
         return health;
     }
 
@@ -43,10 +42,8 @@ public class Player
     public void updatePosition(int x, int y)
     {
         Log.d("DEBUG","Updating Player position to: " + x +"," +y);
-
         colLocation = x;
         rowLocation = y;
-
         reduceHealth();
     }
 

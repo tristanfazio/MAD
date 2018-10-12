@@ -36,7 +36,7 @@ public class Area {
         description = "An unexplored area";
         starred = false;
         explored = false;
-        Log.d("DEBUG","Creating Area. Town: " + town);
+        Log.d("DEBUG","\n   Creating Area. Town: " + town);
     }
 
     public List<Item> getItems(){return items;}
@@ -54,5 +54,27 @@ public class Area {
     {
         Log.d("DEBUG","Is Town? " + town);
         return town;
+    }
+
+    public void toggleExplored()
+    {
+        //if not explored, toggle to explored, if explored, do nothing
+        if(!explored)
+        {
+            explored = true;
+        }
+    }
+
+    public void toggleStarred()
+    {
+        //if not starred, toggle to starred, if starred, toggle to not starred
+        if(!starred)
+        {
+            starred = true;
+        }
+        else if(starred)
+        {
+            starred = false;
+        }
     }
 }

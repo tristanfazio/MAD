@@ -15,6 +15,7 @@ public class Navigation extends AppCompatActivity {
     //game objects
     GameData gameData;
     Player player;
+    int difficulty;
     int[] newPlayerPos;
 
     //UI objects
@@ -45,8 +46,21 @@ public class Navigation extends AppCompatActivity {
         healthTextView = (TextView)findViewById(R.id.healthNo);
 
         // create grid, no args = 2x2 test map, x,y args for custom grid
-        gameData = new GameData();
+        difficulty = 1;
+        switch(difficulty)
+        {
+            case 1: gameData = new GameData(3,3);
+                break;
+            case 2: gameData = new GameData(4,4);
+                break;
+            case 3: gameData = new GameData(5,5);
+                break;
+            default: gameData = new GameData();
+                break;
+        }
+
         player = gameData.getPlayer();
+        gameData.getArea(player.colLocation,player.rowLocation).toggleExplored();
 
         updateAreaText();
 
@@ -130,6 +144,7 @@ public class Navigation extends AppCompatActivity {
             //update the current area
             updateAreaText();
             healthTextView.setText(Double.toString(player.getHealth()));
+            gameData.getArea(x,y).toggleExplored();
         }
         else
         {
