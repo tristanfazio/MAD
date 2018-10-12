@@ -10,8 +10,8 @@ public class Area {
     boolean town;
     List<Item> items;
     String description;
-    Boolean starred;
-    Boolean explored;
+    boolean starred;
+    boolean explored;
 
 
 
@@ -41,8 +41,8 @@ public class Area {
 
     public List<Item> getItems(){return items;}
     public String getDescription(){return description;}
-    public Boolean getExplored(){ return explored; }
-    public Boolean getStarred(){ return starred; }
+    public boolean getExplored(){ return explored; }
+    public boolean getStarred(){ return starred; }
 
     public void addItem(Item inItem)
     {
