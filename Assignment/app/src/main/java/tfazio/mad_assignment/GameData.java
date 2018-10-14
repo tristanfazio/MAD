@@ -11,8 +11,6 @@ public class GameData
     Area[][] grid;
     Player player;
     static GameData instance;
-    private int numTowns;
-    private int numWild;
     private int xMax;
     private int yMax;
     Random random = new Random();
@@ -77,15 +75,6 @@ public class GameData
                 Log.d("DEBUG","\n   Targeting: "+ col+","+row);
                 isTown = randomArea();
                 grid[col][row] = new Area(isTown);
-                //update trackers
-                if(isTown)
-                {
-                    numTowns++;
-                }
-                else
-                {
-                    numWild++;
-                }
             }
         }
     }
@@ -109,40 +98,16 @@ public class GameData
     //randomize the next area being a town or wilderness, keeps the gap from getting too large
     private boolean randomArea()
     {
-        boolean nextArea = true;
+        boolean nextArea =false;
 
-        //check if there is too many of one area
-        Log.d("DEBUG","\n   Area Diff = " + (Math.abs(numTowns-numWild)));
-
-        if(Math.abs(numTowns-numWild)>2)
+        int x = random.nextInt(10);
+        if(x<4)
         {
-
-            //one area now has a atleast 3 more than the other
-            //set next area to the lowest area
-            if(numWild>numTowns)
-            {
-                //wilderness is greater than towns
-                //next area is TRUE for town
-                nextArea = true;
-                Log.d("DEBUG","\n   Too many wilderness, defaulting to town");
-            }
-            else if(numTowns>numWild)
-            {
-                //towns is greater than wilderness
-                //next area is FALSE for town
-                nextArea = false;
-                Log.d("DEBUG","\n   Too many town, defaulting to wilderness");
-
-            }
-        }
-        else
-        {
-            //the gap isn't too large, pick a random for next area
-            nextArea = random.nextBoolean();
-            Log.d("DEBUG","\n   Reasonable difference, randomizing");
-
+            nextArea = true;
         }
 
         return nextArea;
     }
+
+
 }

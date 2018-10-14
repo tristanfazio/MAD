@@ -20,7 +20,7 @@ public class Area {
     {
         town = true;
         items = new ArrayList<Item>();
-        description = "An unexplored area";
+        description = "";
         starred = false;
         explored =false;
 
@@ -33,7 +33,7 @@ public class Area {
     {
         town = isTown;
         items = new ArrayList<Item>();
-        description = "An unexplored area";
+        description = "";
         starred = false;
         explored = false;
         Log.d("DEBUG","\n   Creating Area. Town: " + town);
