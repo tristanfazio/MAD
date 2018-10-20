@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:name="tfazio.mad_assignment.StatusBar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/statusBarColor">
+
+
+    <TextView
+        android:id="@+id/healthLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Health: "
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/healthNo"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="100"
+        android:textColor="@android:color/black"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/equipLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Mass: "
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/equipNo"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="00"
+        android:textColor="@android:color/black"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/cashLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Cash: "
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/cashNo"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="00"
+        android:textColor="@android:color/black"
+        android:textStyle="bold|italic" />
+
+
+    <Button
+        android:id="@+id/resetButton"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:background="@android:drawable/ic_menu_rotate"
+        android:gravity="center_vertical|center_horizontal"
+        android:textColor="@android:color/black" />
+
+</LinearLayout>

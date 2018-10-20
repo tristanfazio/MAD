@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -23,27 +24,39 @@ public class Navigation extends AppCompatActivity {
     private Button southButton;
     private Button eastButton;
     private Button westButton;
-    private Button resetButton;
-    private Button optionsButton;
+    Button optionsButton;
     private TextView playerposTextView;
-    private TextView healthTextView;
+    StatusBar statusBarFrag;
+    Button overviewButton;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
+    protected void onCreate(Bundle bundle)
     {
-        super.onCreate(savedInstanceState);
+        super.onCreate(bundle);
         setContentView(R.layout.activity_navigation);
+
+        //Fragment manager
+        FragmentManager fm = getSupportFragmentManager();
+        //create statusbar fragment
+        statusBarFrag = (StatusBar)fm.findFragmentById(R.id.f_statusBar);
+        if(statusBarFrag == null)//frag doesn't exist
+        {
+            statusBarFrag = new StatusBar();
+            fm.beginTransaction()
+                    .add(R.id.f_statusBar,statusBarFrag)
+                    .commit();
+        }
+
 
         //identify UI elements
         northButton = (Button)findViewById(R.id.northButton);
         southButton = (Button)findViewById(R.id.southButton);
         eastButton = (Button)findViewById(R.id.eastButton);
         westButton = (Button)findViewById(R.id.westButton);
-        resetButton = (Button)findViewById(R.id.resetButton);
-        optionsButton = (Button)findViewById(R.id.optionsButton);
         playerposTextView = (TextView)findViewById(R.id.playerposTextView);
-        healthTextView = (TextView)findViewById(R.id.healthNo);
+        optionsButton = (Button)findViewById(R.id.optionsButton);
+        overviewButton = (Button)findViewById(R.id.overviewButton);
 
         // create grid, no args = 2x2 test map, x,y args for custom grid
         difficulty = 1;
@@ -117,13 +130,12 @@ public class Navigation extends AppCompatActivity {
 
             }
         });
-        //add listener for reset press
-        resetButton.setOnClickListener(new View.OnClickListener()
+        overviewButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                restart(v);
+
             }
         });
 
@@ -143,7 +155,7 @@ public class Navigation extends AppCompatActivity {
             player.updatePosition(x,y);
             //update the current area
             updateAreaText();
-            healthTextView.setText(Double.toString(player.getHealth()));
+            statusBarFrag.updateHealth(player.getHealth());
             gameData.getArea(x,y).toggleExplored();
         }
         else
@@ -184,9 +196,5 @@ public class Navigation extends AppCompatActivity {
         }
     }
 
-    public void restart(View view)
-    {
-        Intent intent = new Intent(this, Navigation.class);
-        startActivity(intent);
-    }
+
 }

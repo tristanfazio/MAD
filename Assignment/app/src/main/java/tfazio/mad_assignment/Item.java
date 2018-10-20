@@ -8,7 +8,7 @@ public abstract class Item {
     String name;
     String description;
     int value;
-    boolean quest;
+
 
     public Item()
     {
@@ -17,14 +17,13 @@ public abstract class Item {
         value = 0;
     }
 
-    public Item(String inName, String inDescription, int inValue, boolean inQuest)
+    public Item(String inName, String inDescription, int inValue)
     {
         name = inName;
         description = inDescription;
         value = inValue;
-        quest = inQuest;
 
-        Log.d("DEBUG","Creating item: "+name + ", " + description + ", " + value + ", " + quest);
+        Log.d("DEBUG","Creating item: "+name + ", " + description + ", " + value + ", ");
     }
 
 }

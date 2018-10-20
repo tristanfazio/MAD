@@ -7,6 +7,7 @@ public class Equipment extends Item {
 
     //Class variables
     double mass;
+    boolean quest;
 
     public Equipment()
     {
@@ -14,11 +15,11 @@ public class Equipment extends Item {
         mass = 1.0;
     }
 
-    public Equipment(String inTitle, String inDescription, int inValue, double inMass)
+    public Equipment(String inTitle, String inDescription, int inValue, double inMass, boolean inQuest)
     {
         super(inTitle,inDescription,inValue);
         mass = inMass;
-        Log.d("DEBUG",", "+mass);
-
+        quest = inQuest;
+        Log.d("DEBUG",", "+mass+ ", quest: " + quest );
     }
 }
