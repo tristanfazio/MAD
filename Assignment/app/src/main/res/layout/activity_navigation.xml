@@ -8,8 +8,7 @@
 
     <Button
         android:id="@+id/eastButton"
-        style="@style/Base.Widget.AppCompat.Button.Small"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
@@ -21,8 +20,7 @@
 
     <Button
         android:id="@+id/westButton"
-        style="@style/Base.Widget.AppCompat.Button.Small"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
         android:layout_marginStart="24dp"
@@ -34,9 +32,8 @@
 
     <Button
         android:id="@+id/northButton"
-        style="@style/Base.Widget.AppCompat.Button.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -50,20 +47,18 @@
 
     <Button
         android:id="@+id/southButton"
-        style="@style/Base.Widget.AppCompat.Button.Small"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="72dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="160dp"
         android:gravity="center_vertical|center_horizontal"
         android:text="S"
+        app:layout_constraintBottom_toBottomOf="@id/f_statusBar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/f_statusBar"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/optionsButton"
@@ -73,7 +68,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_weight="1"
-        android:background="@android:drawable/ic_menu_add"
+        android:foreground="@android:drawable/ic_menu_add"
         android:gravity="center_vertical|center_horizontal"
         app:layout_constraintBottom_toTopOf="@id/f_statusBar"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -86,16 +81,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_weight="1"
-        android:background="@android:drawable/ic_menu_view"
+        android:foreground="@android:drawable/ic_menu_view"
         android:gravity="center_vertical|center_horizontal"
         app:layout_constraintBottom_toTopOf="@+id/optionsButton"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/f_statusBar"
@@ -103,6 +92,22 @@
         android:layout_width="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <fragment
+        android:id="@+id/f_areaInfo"
+        android:name="tfazio.mad_assignment.AreaInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/southButton"
+        app:layout_constraintEnd_toStartOf="@+id/eastButton"
+        app:layout_constraintStart_toEndOf="@+id/westButton"
+        app:layout_constraintTop_toBottomOf="@+id/northButton"
+        tools:layout="@layout/fragment_areainfo" />
 
 
-    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

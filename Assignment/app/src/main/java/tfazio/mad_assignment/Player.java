@@ -37,6 +37,9 @@ public class Player
     {
         return health;
     }
+    public double getEquipmentMass(){return equipmentMass;}
+    public int getCash() { return cash; }
+    public List<Equipment> getEquipment(){return equipment;};
 
     //setters
     public void updatePosition(int x, int y)
@@ -53,6 +56,11 @@ public class Player
         double newHealth = Math.max(0.0, health - 5.0 - (equipmentMass / 2.0));
         Log.d("DEBUG","Reducing player health from " + health + " to " + newHealth);
         health = newHealth;
+    }
+
+    public void addEquipment(Equipment inEquip)
+    {
+        equipment.add(inEquip);
     }
 
     public void increaseHealth()

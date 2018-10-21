@@ -16,7 +16,7 @@ public class GameData
     Random random = new Random();
 
     //default constructor, creates a testgrid
-    public GameData()
+    private GameData()
     {
         //initialize a default 2x2 grid
         createGrid(2,2);
@@ -24,22 +24,24 @@ public class GameData
         instance = this;
     }
 
-    public GameData(int x, int y)
+    private GameData(int x, int y)
     {
-        //initialize a default 2x2 grid
+        //initialize a x*y grid
         createGrid(x,y);
         player = new Player();
+        player.addEquipment(new Equipment("Test Equip","test desc",1,1.0,true));
         instance = this;
     }
 
     //GETTERS
 
     //get an Area object from the specified gamemap coordinates
-    public Area getArea(int x,int y)
+    public Area getArea(int[] xy)
     {
         //get area from supplied coordinates of gameData
-        return grid[x][y];
+        return grid[xy[0]][xy[1]];
     }
+
     public int getxMax()
     {
         return xMax;
@@ -48,7 +50,16 @@ public class GameData
     {
         return yMax;
     }
-    public static GameData getInstance(){return instance;}
+
+    public static GameData getInstance()
+    {
+        if(instance == null)
+        {
+            instance = new GameData(3,3);
+        }
+        return instance;
+    }
+
     public Player getPlayer(){return player;}
 
     //SETTERS
@@ -75,6 +86,8 @@ public class GameData
                 Log.d("DEBUG","\n   Targeting: "+ col+","+row);
                 isTown = randomArea();
                 grid[col][row] = new Area(isTown);
+                grid[col][row].addItem(new Equipment());
+                grid[col][row].addItem(new Equipment());
             }
         }
     }

@@ -3,6 +3,7 @@ package tfazio.mad_assignment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,7 @@ public class Navigation extends AppCompatActivity {
     Button optionsButton;
     private TextView playerposTextView;
     StatusBar statusBarFrag;
+    AreaInfo areaInfoFrag;
     Button overviewButton;
 
 
@@ -35,6 +37,9 @@ public class Navigation extends AppCompatActivity {
     {
         super.onCreate(bundle);
         setContentView(R.layout.activity_navigation);
+
+        //setup game data and get instance
+        gameData = gameData.getInstance();
 
         //Fragment manager
         FragmentManager fm = getSupportFragmentManager();
@@ -45,6 +50,15 @@ public class Navigation extends AppCompatActivity {
             statusBarFrag = new StatusBar();
             fm.beginTransaction()
                     .add(R.id.f_statusBar,statusBarFrag)
+                    .commit();
+        }
+        //create areaInfo fragment
+        areaInfoFrag = (AreaInfo)fm.findFragmentById(R.id.f_areaInfo);
+        if(areaInfoFrag==null)//frag doesnt exist
+        {
+            areaInfoFrag = new AreaInfo();
+            fm.beginTransaction()
+                    .add(R.id.f_areaInfo,areaInfoFrag)
                     .commit();
         }
 
@@ -58,24 +72,12 @@ public class Navigation extends AppCompatActivity {
         optionsButton = (Button)findViewById(R.id.optionsButton);
         overviewButton = (Button)findViewById(R.id.overviewButton);
 
-        // create grid, no args = 2x2 test map, x,y args for custom grid
-        difficulty = 1;
-        switch(difficulty)
-        {
-            case 1: gameData = new GameData(3,3);
-                break;
-            case 2: gameData = new GameData(4,4);
-                break;
-            case 3: gameData = new GameData(5,5);
-                break;
-            default: gameData = new GameData();
-                break;
-        }
-
         player = gameData.getPlayer();
-        gameData.getArea(player.colLocation,player.rowLocation).toggleExplored();
+        int[] xy = {player.colLocation,player.rowLocation};
+        gameData.getArea(xy).toggleExplored();
+        updateInfoFrag();
+        updateStatusBar();
 
-        updateAreaText();
 
         //add listeners for movement presses
         northButton.setOnClickListener(new View.OnClickListener()
@@ -90,6 +92,7 @@ public class Navigation extends AppCompatActivity {
                 movePlayer(newPlayerPos[0],newPlayerPos[1]);
             }
         });
+
         southButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -127,7 +130,14 @@ public class Navigation extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-
+                if(areaInfoFrag.getPlayerPos()=="Town")
+                {
+                    startActivity(new Intent(Navigation.this,Market.class));
+                }
+                else if(areaInfoFrag.getPlayerPos()=="Wilderness")
+                {
+                    startActivity(new Intent(Navigation.this,Wilderness.class));
+                }
             }
         });
         overviewButton.setOnClickListener(new View.OnClickListener()
@@ -141,7 +151,6 @@ public class Navigation extends AppCompatActivity {
 
     }
 
-
     private void movePlayer(int x, int y)
     {
         //validate position
@@ -154,9 +163,10 @@ public class Navigation extends AppCompatActivity {
 
             player.updatePosition(x,y);
             //update the current area
-            updateAreaText();
-            statusBarFrag.updateHealth(player.getHealth());
-            gameData.getArea(x,y).toggleExplored();
+            updateInfoFrag();
+            statusBarFrag.setHealth();
+            int xy[] = {x,y};
+            gameData.getArea(xy).toggleExplored();
         }
         else
         {
@@ -179,21 +189,18 @@ public class Navigation extends AppCompatActivity {
         }
     }
 
-    private void updateAreaText()
+    private void updateStatusBar()
     {
-        Log.d("DEBUG","Checking for text update at:");
-        int[] currentPos = player.getPosition();
-        if(gameData.getArea(currentPos[0],currentPos[1]).isTown())
-        {
-            playerposTextView.setText("Town");
-            Log.d("DEBUG","Set text to town");
+        statusBarFrag.setHealth();
+        statusBarFrag.setEquip();
+        statusBarFrag.setCash();
+    }
 
-        }
-        else
-        {
-            playerposTextView.setText("Wilderness");
-            Log.d("DEBUG","Set text to wilderness");
-        }
+    private void updateInfoFrag()
+    {
+        areaInfoFrag.setDescription();
+        areaInfoFrag.setStarred();
+        areaInfoFrag.setPlayerPos();
     }
 
 

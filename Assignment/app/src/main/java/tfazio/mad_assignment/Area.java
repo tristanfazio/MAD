@@ -13,8 +13,6 @@ public class Area {
     boolean starred;
     boolean explored;
 
-
-
     //default constructor
     public Area()
     {
@@ -39,21 +37,22 @@ public class Area {
         Log.d("DEBUG","\n   Creating Area. Town: " + town);
     }
 
+    //getters
     public List<Item> getItems(){return items;}
     public String getDescription(){return description;}
     public boolean getExplored(){ return explored; }
     public boolean getStarred(){ return starred; }
-
-    public void addItem(Item inItem)
-    {
-
-        items.add(inItem);
-    }
-
     public boolean isTown()
     {
         Log.d("DEBUG","Is Town? " + town);
         return town;
+    }
+
+    //setters
+    public void addItem(Item inItem)
+    {
+
+        items.add(inItem);
     }
 
     public void toggleExplored()
@@ -76,5 +75,10 @@ public class Area {
         {
             starred = false;
         }
+    }
+
+    public void setDescription(String inText)
+    {
+        description = inText;
     }
 }

@@ -73,7 +73,8 @@
         android:id="@+id/resetButton"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:background="@android:drawable/ic_menu_rotate"
+        android:layout_marginRight="8dp"
+        android:foreground="@android:drawable/ic_menu_rotate"
         android:gravity="center_vertical|center_horizontal"
         android:textColor="@android:color/black" />
 

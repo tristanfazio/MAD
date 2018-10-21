@@ -8,12 +8,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class StatusBar extends Fragment
 {
     //class fields
     private Button resetButton;
     private Button optionsButton;
     private TextView healthTextView;
+    private TextView equipTextView;
+    private TextView cashTextView;
+    GameData gameData;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup ui, Bundle bundle)
@@ -23,7 +28,10 @@ public class StatusBar extends Fragment
 
         resetButton = (Button)view.findViewById(R.id.resetButton);
         healthTextView = (TextView)view.findViewById(R.id.healthNo);
+        equipTextView = (TextView)view.findViewById(R.id.equipNo);
+        cashTextView = (TextView)view.findViewById(R.id.cashNo);
 
+        gameData = gameData.getInstance();
 
         //add listener for reset press
         resetButton.setOnClickListener(new View.OnClickListener()
@@ -38,9 +46,19 @@ public class StatusBar extends Fragment
         return  view;
     }
 
-    public void updateHealth(double inHealth)
+    public void setHealth()
     {
-        healthTextView.setText(Double.toString(inHealth));
+        healthTextView.setText(Double.toString(gameData.getPlayer().getHealth()));
+    }
+
+    public void setEquip()
+    {
+        equipTextView.setText(Double.toString(gameData.getPlayer().getEquipmentMass()));
+    }
+
+    public void setCash()
+    {
+        cashTextView.setText(Integer.toString(gameData.getPlayer().getCash()));
     }
 
     public void restart(View view)

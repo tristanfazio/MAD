@@ -13,6 +13,7 @@ public class Equipment extends Item {
     {
         super();
         mass = 1.0;
+        quest = false;
     }
 
     public Equipment(String inTitle, String inDescription, int inValue, double inMass, boolean inQuest)
