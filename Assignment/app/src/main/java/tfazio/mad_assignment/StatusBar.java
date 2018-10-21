@@ -33,6 +33,8 @@ public class StatusBar extends Fragment
 
         gameData = gameData.getInstance();
 
+
+
         //add listener for reset press
         resetButton.setOnClickListener(new View.OnClickListener()
         {

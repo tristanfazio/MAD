@@ -13,51 +13,51 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/nameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:text="Name"
-            app:layout_constraintEnd_toStartOf="@+id/textView3"
+            app:layout_constraintEnd_toStartOf="@+id/priceLabel"
             tools:layout_editor_absoluteY="59dp" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/priceLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:text="Price:"
-            app:layout_constraintEnd_toStartOf="@+id/textView4"
+            app:layout_constraintEnd_toStartOf="@+id/priceTextView"
             tools:layout_editor_absoluteY="59dp" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/priceTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:text="0"
-            app:layout_constraintEnd_toStartOf="@+id/textView5"
+            app:layout_constraintEnd_toStartOf="@+id/extraTextView"
             tools:layout_editor_absoluteY="59dp" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/extraLabelTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:text="Extra:"
-            app:layout_constraintEnd_toStartOf="@+id/textView6"
+            app:layout_constraintEnd_toStartOf="@+id/extraTextView"
             tools:layout_editor_absoluteY="59dp" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/extraTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -66,14 +66,14 @@
             tools:layout_editor_absoluteY="59dp" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/actionButton"
             android:layout_width="wrap_content"
             android:layout_height="41dp"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:layout_weight="1"
             android:text="Action"
-            app:layout_constraintStart_toEndOf="@+id/textView6"
+            app:layout_constraintStart_toEndOf="@+id/extraTextView"
             tools:layout_editor_absoluteY="59dp" />
 
     </LinearLayout>
@@ -89,8 +89,8 @@
         android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:text="Description"
-        app:layout_constraintEnd_toEndOf="@+id/textView6"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintEnd_toEndOf="@+id/extraTextView"
+        app:layout_constraintStart_toStartOf="@+id/nameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/priceLabel" />
 
 </LinearLayout>

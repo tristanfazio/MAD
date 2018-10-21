@@ -72,11 +72,11 @@ public class Navigation extends AppCompatActivity {
         optionsButton = (Button)findViewById(R.id.optionsButton);
         overviewButton = (Button)findViewById(R.id.overviewButton);
 
+        //set first area player starts in to explored
         player = gameData.getPlayer();
         int[] xy = {player.colLocation,player.rowLocation};
         gameData.getArea(xy).toggleExplored();
-        updateInfoFrag();
-        updateStatusBar();
+
 
 
         //add listeners for movement presses
@@ -130,12 +130,15 @@ public class Navigation extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                if(areaInfoFrag.getPlayerPos()=="Town")
+                Log.d("DEBUG","Options Pressed");
+                if(gameData.getArea(gameData.getPlayer().getPosition()).isTown())
                 {
+                    Log.d("DEBUG","Launching Market");
                     startActivity(new Intent(Navigation.this,Market.class));
                 }
-                else if(areaInfoFrag.getPlayerPos()=="Wilderness")
+                else if(!gameData.getArea(gameData.getPlayer().getPosition()).isTown())
                 {
+                    Log.d("DEBUG","Launching Wilderness");
                     startActivity(new Intent(Navigation.this,Wilderness.class));
                 }
             }
@@ -145,10 +148,19 @@ public class Navigation extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
+                Log.d("DEBUG","Overview Pressed");
 
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        /* update all UI elements */
+        super.onResume();
+        updateInfoFrag();
+        updateStatusBar();
     }
 
     private void movePlayer(int x, int y)

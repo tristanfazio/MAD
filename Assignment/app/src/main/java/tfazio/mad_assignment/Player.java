@@ -1,6 +1,7 @@
 package tfazio.mad_assignment;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player
@@ -24,6 +25,7 @@ public class Player
         cash = 100;
         health = 100.0;
         equipmentMass = 0.0;
+        equipment = new ArrayList<>();
     }
 
     //getters

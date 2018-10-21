@@ -13,11 +13,16 @@ public class Food extends Item {
         health = 1;
     }
 
-    public Food(String inTitle, String inDescription, int inValue,double inHealth)
+    public Food(String inTitle, String inDescription, int inValue,double inHealth, boolean inOwned)
     {
-        super(inTitle,inDescription,inValue);
+        super(inTitle,inDescription,inValue,inOwned);
         health = inHealth;
         Log.d("DEBUG",", "+health);
 
+    }
+
+    public double getHealth()
+    {
+        return health;
     }
 }

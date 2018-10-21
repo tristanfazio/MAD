@@ -29,7 +29,7 @@ public class GameData
         //initialize a x*y grid
         createGrid(x,y);
         player = new Player();
-        player.addEquipment(new Equipment("Test Equip","test desc",1,1.0,true));
+        player.addEquipment(new Equipment("Test Equip","test desc",1,1.0,true,true));
         instance = this;
     }
 

@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,11 +60,6 @@ public class Market extends AppCompatActivity {
         titleTextView.setText("Market");
         flavourTextView.setText("What are you buyin?");
 
-        //fill statusbar with values
-        statusBarFrag.setCash();
-        statusBarFrag.setEquip();
-        statusBarFrag.setHealth();
-
         //fill list
 
         int[] xy = gameData.getPlayer().getPosition();
@@ -87,18 +83,77 @@ public class Market extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        //fill statusbar with values
+        super.onResume();
+        statusBarFrag.setCash();
+        statusBarFrag.setEquip();
+        statusBarFrag.setHealth();
+    }
+
     private class MyDataVHolder extends RecyclerView.ViewHolder
     {
+        private final Button actionButton;
+        private final TextView extraTextVeiw;
+        private final TextView extraLabelTextView;
+        private final TextView priceTextView;
+        private final TextView nameTextView;
+
         public MyDataVHolder(LayoutInflater li, ViewGroup parent)
         {
             super(li.inflate(R.layout.list_market,parent,false));
 
             //get UI elements
+            nameTextView = (TextView)itemView.findViewById(R.id.nameTextView);
+            priceTextView = (TextView)itemView.findViewById(R.id.priceTextView);
+            extraLabelTextView = (TextView)itemView.findViewById(R.id.extraLabelTextView);
+            extraTextVeiw = (TextView)itemView.findViewById(R.id.extraTextView);
+            actionButton = (Button)itemView.findViewById(R.id.actionButton);
         }
 
         public void bind(Item item)
         {
             //set UI elements
+            nameTextView.setText(item.getName());
+            priceTextView.setText(Double.toString(item.getValue()));
+            if(item instanceof Equipment)
+            {
+                extraLabelTextView.setText("Mass:");
+                extraTextVeiw.setText(Double.toString(((Equipment) item).getMass()));
+            }
+            else if(item instanceof Food)
+            {
+                extraLabelTextView.setText("Health:");
+                extraTextVeiw.setText(Double.toString(((Food) item).getHealth()));
+            }
+
+            if(item.isOwned())
+            {
+                actionButton.setText("Sell");
+                actionButton.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        //sell the item
+                        Log.d("DEBUG","Sell item "+ nameTextView.getText().toString());
+                    }
+                });
+            }
+            else if(!item.isOwned())
+            {
+                actionButton.setText("Buy");
+                actionButton.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        //sell the item
+                        Log.d("DEBUG","Buy item "+ nameTextView.getText().toString());
+                    }
+                });
+            }
         }
     }
 
