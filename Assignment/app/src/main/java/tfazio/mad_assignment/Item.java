@@ -9,6 +9,7 @@ public abstract class Item {
     String description;
     int value;
     boolean owned;
+    Boolean useable;
 
 
     public Item()
@@ -17,15 +18,26 @@ public abstract class Item {
         description = "item template";
         value = 0;
         owned = false;
+        useable = false;
     }
 
-    public Item(String inName, String inDescription, int inValue, boolean inOwned)
+    public Item(String inName, String inDescription, int inValue,boolean inUseable)
     {
         name = inName;
         description = inDescription;
         value = inValue;
-        owned = inOwned;
-        Log.d("DEBUG","Creating item: "+name + ", " + description + ", " + value + ", ");
+        owned = false;
+        useable = inUseable;
+        Log.d("DEBUG","Creating item: "+name + ", " + description + ", " + value + ", " + "Owned: " + owned);
+    }
+    public Item(String inName, String inDescription, int inValue)
+    {
+        name = inName;
+        description = inDescription;
+        value = inValue;
+        owned = false;
+        useable = false;
+        Log.d("DEBUG","Creating item: "+name + ", " + description + ", " + value + ", " + "Owned: " + owned);
     }
 
     public String getDescription() {return description; }
@@ -34,4 +46,17 @@ public abstract class Item {
     public boolean isOwned() {
         return owned;
     }
+    public boolean isUseable(){return useable;}
+    public void toggleOwned()
+    {
+        if(isOwned())
+        {
+            owned=false;
+        }
+        else if(!isOwned())
+        {
+            owned=true;
+        }
+    }
+
 }

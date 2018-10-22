@@ -13,17 +13,24 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Market extends AppCompatActivity {
+public class Market extends AppCompatActivity
+{
 
     GameData gameData;
+    Player player;
     private TextView titleTextView;
     private TextView flavourTextView;
     private Button closeButton;
     private StatusBar statusBarFrag;
     private RecyclerView recViewFrag;
     List<Item> items;
+    private Area area;
+    MyAdapter adapter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -32,6 +39,8 @@ public class Market extends AppCompatActivity {
         setContentView(R.layout.activity_market);
 
         gameData = gameData.getInstance();
+        player = gameData.getPlayer();
+        area = gameData.getArea(player.getPosition());
 
         //get UI elements
 
@@ -63,14 +72,14 @@ public class Market extends AppCompatActivity {
 
         //fill list
 
-        if (items == null)//only make list once
-        {
-            int[] xy = gameData.getPlayer().getPosition();
-            items = gameData.getArea(xy).getItems();
-            items.addAll(gameData.getPlayer().getEquipment());
-        }
+        items = new ArrayList<>();
+        items.clear();
+        int[] xy = gameData.getPlayer().getPosition();//get player position info
+        items .addAll(gameData.getArea(xy).getItems());//get item list from area
+        items.addAll(gameData.getPlayer().getEquipment());//get item list from player
 
-        MyAdapter adapter = new MyAdapter(items);
+
+        adapter = new MyAdapter(items);
         recViewFrag.setAdapter(adapter);
 
         //set button listeners
@@ -96,6 +105,13 @@ public class Market extends AppCompatActivity {
         statusBarFrag.setHealth();
     }
 
+    private void updateStatusBar()
+    {
+        statusBarFrag.setHealth();
+        statusBarFrag.setEquip();
+        statusBarFrag.setCash();
+    }
+
     private class MyDataVHolder extends RecyclerView.ViewHolder
     {
         private final Button actionButton;
@@ -103,6 +119,10 @@ public class Market extends AppCompatActivity {
         private final TextView extraLabelTextView;
         private final TextView priceTextView;
         private final TextView nameTextView;
+        private final Button useButton;
+        private final TextView descriptionTextView;
+        Item item;
+
 
         public MyDataVHolder(LayoutInflater li, ViewGroup parent)
         {
@@ -110,18 +130,89 @@ public class Market extends AppCompatActivity {
 
             //get UI elements
             nameTextView = (TextView)itemView.findViewById(R.id.nameTextView);
+            descriptionTextView = (TextView)itemView.findViewById(R.id.descriptionTextView);
             priceTextView = (TextView)itemView.findViewById(R.id.priceTextView);
             extraLabelTextView = (TextView)itemView.findViewById(R.id.extraLabelTextView);
             extraTextVeiw = (TextView)itemView.findViewById(R.id.extraTextView);
             actionButton = (Button)itemView.findViewById(R.id.actionButton);
+            useButton = (Button)itemView.findViewById(R.id.useButton);
+
+            //Listeners
+            //set buy or sell based on owned or not
+            actionButton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    if(item.isOwned())//owned by the player
+                    {
+                        //sell the item
+                        Log.d("DEBUG", "Sell item " + nameTextView.getText().toString());
+                        //deduct mass
+                        player.updateMass(-((Equipment) item).getMass());
+                        //add cash
+                        player.updateCash(item.getValue());
+                        //remove from player
+                        player.removeEquipment((Equipment) item);
+                        //add to area
+                        area.addItem(item);
+                    }
+                    else if(!item.isOwned())//not owned, area item
+                    {
+                        //buy the item
+                        Log.d("DEBUG","Buy item "+ nameTextView.getText().toString());
+                        //deduct cash
+                        player.updateCash(-item.getValue());
+                        //if instance of food
+                        if(item instanceof Food)
+                        {
+                            //update health
+                            player.updateHealth(((Food)item).getHealth());
+                        }
+                        else if(item instanceof Equipment)
+                        {
+                            //else if equip
+                            //update mass
+                            player.updateMass(((Equipment) item).getMass());
+                            //add to player
+                            player.addEquipment((Equipment)item);
+                        }
+                        //remove from area
+                        area.removeItem(item);
+                    }
+                    updateStatusBar();
+                    adapter.notifyDataSetChanged();
+                }
+            });
+
+            //set listener for use if useable
+            useButton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    if(item.isUseable()) {
+                        //Use the item
+
+                        Log.d("DEBUG", "Using item " + nameTextView.getText().toString());
+                    }
+                }
+            });
+
         }
 
         public void bind(Item item)
         {
             //set UI elements
+            this.item = item;
+
             nameTextView.setText(item.getName());
-            priceTextView.setText(Double.toString(item.getValue()));
-            if(item instanceof Equipment)
+            descriptionTextView.setText(item.getDescription());
+            priceTextView.setText(Integer.toString(item.getValue()));
+            actionButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+            useButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+
+            if(item instanceof Equipment)//switch label depending on needed info
             {
                 extraLabelTextView.setText("Mass:");
                 extraTextVeiw.setText(Double.toString(((Equipment) item).getMass()));
@@ -135,28 +226,16 @@ public class Market extends AppCompatActivity {
             if(item.isOwned())
             {
                 actionButton.setText("Sell");
-                actionButton.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View v)
-                    {
-                        //sell the item
-                        Log.d("DEBUG","Sell item "+ nameTextView.getText().toString());
-                    }
-                });
             }
             else if(!item.isOwned())
             {
                 actionButton.setText("Buy");
-                actionButton.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View v)
-                    {
-                        //sell the item
-                        Log.d("DEBUG","Buy item "+ nameTextView.getText().toString());
-                    }
-                });
+            }
+
+
+            if(!item.isUseable() && item.isOwned())
+            {
+                useButton.setVisibility(View.GONE);
             }
         }
     }
@@ -188,6 +267,4 @@ public class Market extends AppCompatActivity {
             vh.bind(items.get(index));
         }
     }
-
-
 }

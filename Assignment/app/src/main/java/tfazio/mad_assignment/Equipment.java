@@ -16,9 +16,9 @@ public class Equipment extends Item {
         quest = false;
     }
 
-    public Equipment(String inTitle, String inDescription, int inValue, double inMass, boolean inQuest,boolean inOwned)
+    public Equipment(String inTitle, String inDescription, int inValue, double inMass, boolean inQuest,boolean inUseable)
     {
-        super(inTitle,inDescription,inValue,inOwned);
+        super(inTitle,inDescription,inValue,inUseable);
         mass = inMass;
         quest = inQuest;
         Log.d("DEBUG",", "+mass+ ", quest: " + quest );
@@ -28,7 +28,9 @@ public class Equipment extends Item {
         return mass;
     }
 
-    public boolean isQuest() {
+     public boolean isQuest() {
         return quest;
     }
+
+
 }

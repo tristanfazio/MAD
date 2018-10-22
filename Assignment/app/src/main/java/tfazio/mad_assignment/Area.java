@@ -55,6 +55,11 @@ public class Area {
         items.add(inItem);
     }
 
+    public void removeItem(Item inItem)
+    {
+        items.remove(inItem);
+    }
+
     public void toggleExplored()
     {
         //if not explored, toggle to explored, if explored, do nothing

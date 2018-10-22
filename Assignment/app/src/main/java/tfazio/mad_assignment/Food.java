@@ -13,9 +13,9 @@ public class Food extends Item {
         health = 1;
     }
 
-    public Food(String inTitle, String inDescription, int inValue,double inHealth, boolean inOwned)
+    public Food(String inTitle, String inDescription, int inValue,double inHealth)
     {
-        super(inTitle,inDescription,inValue,inOwned);
+        super(inTitle,inDescription,inValue);
         health = inHealth;
         Log.d("DEBUG",", "+health);
 

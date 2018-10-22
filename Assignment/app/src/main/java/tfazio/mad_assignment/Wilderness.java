@@ -11,8 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Wilderness extends AppCompatActivity {
@@ -24,6 +26,8 @@ public class Wilderness extends AppCompatActivity {
     private StatusBar statusBarFrag;
     private RecyclerView recViewFrag;
     List<Item> items;
+    private Player player;
+    private Area area;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -32,6 +36,8 @@ public class Wilderness extends AppCompatActivity {
         setContentView(R.layout.activity_wilderness);
 
         gameData = gameData.getInstance();
+        player = gameData.getPlayer();
+        area = gameData.getArea(player.getPosition());
 
         //get UI elements
 
@@ -63,12 +69,11 @@ public class Wilderness extends AppCompatActivity {
 
         //fill list
 
-        if (items == null)//only make list once
-        {
-            int[] xy = gameData.getPlayer().getPosition();
-            items = gameData.getArea(xy).getItems();
-            items.addAll(gameData.getPlayer().getEquipment());
-        }
+        items = new ArrayList<>();
+        items.clear();
+        int[] xy = gameData.getPlayer().getPosition();
+        items = gameData.getArea(xy).getItems();
+        items.addAll(gameData.getPlayer().getEquipment());
 
 
         MyAdapter adapter = new MyAdapter(items);
@@ -104,6 +109,9 @@ public class Wilderness extends AppCompatActivity {
         private final TextView extraLabelTextView;
         private final TextView priceTextView;
         private final TextView nameTextView;
+        private Button useButton;
+        Item item;
+        private TextView descriptionTextView;
 
         public MyDataVHolder(LayoutInflater li, ViewGroup parent)
         {
@@ -111,18 +119,79 @@ public class Wilderness extends AppCompatActivity {
 
             //get UI elements
             nameTextView = (TextView)itemView.findViewById(R.id.nameTextView);
+            descriptionTextView=(TextView)itemView.findViewById(R.id.descriptionTextView);
             priceTextView = (TextView)itemView.findViewById(R.id.priceTextView);
             extraLabelTextView = (TextView)itemView.findViewById(R.id.extraLabelTextView);
             extraTextVeiw = (TextView)itemView.findViewById(R.id.extraTextView);
             actionButton = (Button)itemView.findViewById(R.id.actionButton);
+            useButton = (Button)itemView.findViewById(R.id.useButton);
+
+            //Listeners
+            actionButton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    //set drop or pickup based on owned or not
+                    if(item.isOwned())//owned by the player
+                    {
+                        //sell the item
+                        Log.d("DEBUG", "Drop item " + nameTextView.getText().toString());
+                        //deduct mass
+                        player.updateMass(-((Equipment) item).getMass());
+                        //remove from player
+                        player.removeEquipment((Equipment) item);
+                        //add to area
+                        area.addItem(item);
+                    }
+                    else if(!item.isOwned())//not owned, area item
+                    {
+                        //buy the item
+                        Log.d("DEBUG", "Pickup item " + nameTextView.getText().toString());
+                        //if instance of food
+                        if (item instanceof Food) {
+                            //update health
+                            player.updateHealth(((Food) item).getHealth());
+                        } else if (item instanceof Equipment) {
+                            //else if equip
+                            //update mass
+                            player.updateMass(((Equipment) item).getMass());
+                            //add to player
+                            player.addEquipment((Equipment) item);
+                        }
+                        //remove from area
+                        area.removeItem(item);
+                    }
+                }
+            });
+
+            //set listener for use if useable
+            useButton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    //Use the item
+                    if(item.isUseable())
+                    {
+                        Log.d("DEBUG","Using item "+ nameTextView.getText().toString());
+                    }
+                }
+            });
         }
 
         public void bind(Item item)
         {
             //set UI elements
+            this.item = item;
+
             nameTextView.setText(item.getName());
-            priceTextView.setText(Double.toString(item.getValue()));
-            if(item instanceof Equipment)
+            descriptionTextView.setText(item.getDescription());
+            priceTextView.setText(Integer.toString(item.getValue()));
+            actionButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+            useButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+
+            if(item instanceof Equipment)//switch label depending on needed info
             {
                 extraLabelTextView.setText("Mass:");
                 extraTextVeiw.setText(Double.toString(((Equipment) item).getMass()));
@@ -136,28 +205,17 @@ public class Wilderness extends AppCompatActivity {
             if(item.isOwned())
             {
                 actionButton.setText("Drop");
-                actionButton.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View v)
-                    {
-                        //sell the item
-                        Log.d("DEBUG","Drop item "+ nameTextView.getText().toString());
-                    }
-                });
             }
             else if(!item.isOwned())
             {
                 actionButton.setText("Pickup");
-                actionButton.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View v)
-                    {
-                        //sell the item
-                        Log.d("DEBUG","Pickup item "+ nameTextView.getText().toString());
-                    }
-                });
+            }
+
+
+            //hide USE button if item not useable
+            if(!item.isUseable() && item.isOwned())
+            {
+                useButton.setVisibility(View.GONE);
             }
         }
     }

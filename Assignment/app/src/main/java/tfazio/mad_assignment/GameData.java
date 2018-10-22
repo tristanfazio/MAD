@@ -29,7 +29,7 @@ public class GameData
         //initialize a x*y grid
         createGrid(x,y);
         player = new Player();
-        player.addEquipment(new Equipment("Test Equip","test desc",1,1.0,true,true));
+        player.addEquipment(new Equipment("Test Player Equip","this is a test desc",1,1.0,true,true));
         instance = this;
     }
 
@@ -86,8 +86,8 @@ public class GameData
                 Log.d("DEBUG","\n   Targeting: "+ col+","+row);
                 isTown = randomArea();
                 grid[col][row] = new Area(isTown);
-                grid[col][row].addItem(new Equipment());
-                grid[col][row].addItem(new Equipment());
+                grid[col][row].addItem(new Food("Test Food","some testing description",1,1));
+                grid[col][row].addItem(new Equipment("Test Area Equip","this is a test desc",1,1.0,true,true));
             }
         }
     }

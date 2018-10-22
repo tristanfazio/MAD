@@ -49,25 +49,54 @@ public class Player
         Log.d("DEBUG","Updating Player position to: " + x +"," +y);
         colLocation = x;
         rowLocation = y;
-        reduceHealth();
+        movementHealth();
     }
 
-    public void reduceHealth()
+    public void movementHealth()
     {
         //update health based on formula, always return 0 if drops belows
         double newHealth = Math.max(0.0, health - 5.0 - (equipmentMass / 2.0));
         Log.d("DEBUG","Reducing player health from " + health + " to " + newHealth);
         health = newHealth;
+        checkLose();
     }
 
     public void addEquipment(Equipment inEquip)
     {
+        inEquip.toggleOwned();
         equipment.add(inEquip);
     }
 
-    public void increaseHealth()
+    public void removeEquipment(Equipment inEquip)
     {
+        inEquip.toggleOwned();
+        equipment.remove(inEquip);
+    }
 
+    public void updateHealth(double inHealth)
+    {
+        health = health + inHealth;
+        checkLose();
+    }
+
+    public void updateMass(double inMass)
+    {
+        equipmentMass = equipmentMass + inMass;
+    }
+
+    public void updateCash(int inCash)
+    {
+        cash = cash + inCash;
+    }
+
+    public void checkLose()
+    {
+        if(health<=0)
+        {
+            //activate lose method
+            Log.d("DEBUG","\n\n*****GAME OVER*****");
+
+        }
     }
 
 }
