@@ -23,6 +23,7 @@ public class Market extends AppCompatActivity {
     private Button closeButton;
     private StatusBar statusBarFrag;
     private RecyclerView recViewFrag;
+    List<Item> items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -62,9 +63,12 @@ public class Market extends AppCompatActivity {
 
         //fill list
 
-        int[] xy = gameData.getPlayer().getPosition();
-        List<Item> items = gameData.getArea(xy).getItems();
-        items.addAll(gameData.getPlayer().getEquipment());
+        if (items == null)//only make list once
+        {
+            int[] xy = gameData.getPlayer().getPosition();
+            items = gameData.getArea(xy).getItems();
+            items.addAll(gameData.getPlayer().getEquipment());
+        }
 
         MyAdapter adapter = new MyAdapter(items);
         recViewFrag.setAdapter(adapter);

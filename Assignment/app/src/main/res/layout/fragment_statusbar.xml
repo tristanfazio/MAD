@@ -5,7 +5,7 @@
     android:name="tfazio.mad_assignment.StatusBar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?android:attr/statusBarColor">
+    android:background="@color/colorSecondary">
 
 
     <TextView
@@ -15,7 +15,7 @@
         android:layout_weight="1"
         android:gravity="center_vertical|center_horizontal"
         android:text="Health: "
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorPrimary"
         android:textStyle="bold" />
 
     <TextView
@@ -25,7 +25,7 @@
         android:layout_weight="1"
         android:gravity="center_vertical|center_horizontal"
         android:text="100"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorPrimary"
         android:textStyle="bold|italic" />
 
     <TextView
@@ -35,7 +35,7 @@
         android:layout_weight="1"
         android:gravity="center_vertical|center_horizontal"
         android:text="Mass: "
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorPrimary"
         android:textStyle="bold" />
 
     <TextView
@@ -45,7 +45,7 @@
         android:layout_weight="1"
         android:gravity="center_vertical|center_horizontal"
         android:text="00"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorPrimary"
         android:textStyle="bold|italic" />
 
     <TextView
@@ -55,7 +55,7 @@
         android:layout_weight="1"
         android:gravity="center_vertical|center_horizontal"
         android:text="Cash: "
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorPrimary"
         android:textStyle="bold" />
 
     <TextView
@@ -65,7 +65,7 @@
         android:layout_weight="1"
         android:gravity="center_vertical|center_horizontal"
         android:text="00"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorPrimary"
         android:textStyle="bold|italic" />
 
 
@@ -75,7 +75,7 @@
         android:layout_height="match_parent"
         android:layout_marginRight="8dp"
         android:foreground="@android:drawable/ic_menu_rotate"
-        android:gravity="center_vertical|center_horizontal"
-        android:textColor="@android:color/black" />
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical|center_horizontal" />
 
 </LinearLayout>

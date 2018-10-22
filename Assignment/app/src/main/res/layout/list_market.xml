@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="@color/colorLight"
     android:orientation="vertical">
 
     <LinearLayout
@@ -20,6 +22,9 @@
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:text="Name"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold|italic"
             app:layout_constraintEnd_toStartOf="@+id/priceLabel"
             tools:layout_editor_absoluteY="59dp" />
 
@@ -31,6 +36,8 @@
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:text="Price:"
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@+id/priceTextView"
             tools:layout_editor_absoluteY="59dp" />
 
@@ -42,6 +49,8 @@
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:text="0"
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@+id/extraTextView"
             tools:layout_editor_absoluteY="59dp" />
 
@@ -53,6 +62,8 @@
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:text="Extra:"
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@+id/extraTextView"
             tools:layout_editor_absoluteY="59dp" />
 
@@ -62,6 +73,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="0"
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp"
             tools:layout_editor_absoluteX="198dp"
             tools:layout_editor_absoluteY="59dp" />
 
@@ -73,6 +86,7 @@
             android:layout_marginStart="8dp"
             android:layout_weight="1"
             android:text="Action"
+            android:textColor="@color/colorPrimary"
             app:layout_constraintStart_toEndOf="@+id/extraTextView"
             tools:layout_editor_absoluteY="59dp" />
 
@@ -89,6 +103,7 @@
         android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:text="Description"
+        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="@+id/extraTextView"
         app:layout_constraintStart_toStartOf="@+id/nameTextView"
         app:layout_constraintTop_toBottomOf="@+id/priceLabel" />
