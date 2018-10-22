@@ -1,5 +1,7 @@
 package tfazio.mad_assignment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -28,6 +30,7 @@ public class Wilderness extends AppCompatActivity {
     List<Item> items;
     private Player player;
     private Area area;
+    MyAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -68,15 +71,9 @@ public class Wilderness extends AppCompatActivity {
         flavourTextView.setText("You search the current area for hidden treasures...");
 
         //fill list
+        buildItemList();
 
-        items = new ArrayList<>();
-        items.clear();
-        int[] xy = gameData.getPlayer().getPosition();
-        items = gameData.getArea(xy).getItems();
-        items.addAll(gameData.getPlayer().getEquipment());
-
-
-        MyAdapter adapter = new MyAdapter(items);
+        adapter = new MyAdapter();
         recViewFrag.setAdapter(adapter);
 
         //set button listeners
@@ -102,16 +99,33 @@ public class Wilderness extends AppCompatActivity {
         statusBarFrag.setHealth();
     }
 
+    private void updateStatusBar()
+    {
+        statusBarFrag.setHealth();
+        statusBarFrag.setEquip();
+        statusBarFrag.setCash();
+    }
+
+    public void buildItemList()
+    {
+        items = new ArrayList<>();
+        items.clear();
+        int[] xy = gameData.getPlayer().getPosition();
+        items = gameData.getArea(xy).getItems();
+        items.addAll(gameData.getPlayer().getEquipment());
+    }
+
     private class MyDataVHolder extends RecyclerView.ViewHolder
     {
-        private final Button actionButton;
-        private final TextView extraTextVeiw;
-        private final TextView extraLabelTextView;
-        private final TextView priceTextView;
-        private final TextView nameTextView;
+        private  Button actionButton;
+        private  TextView extraTextVeiw;
+        private  TextView extraLabelTextView;
+        private  TextView priceTextView;
+        private  TextView nameTextView;
         private Button useButton;
-        Item item;
         private TextView descriptionTextView;
+        Item item;
+
 
         public MyDataVHolder(LayoutInflater li, ViewGroup parent)
         {
@@ -132,13 +146,10 @@ public class Wilderness extends AppCompatActivity {
                 @Override
                 public void onClick(View v)
                 {
-                    //set drop or pickup based on owned or not
                     if(item.isOwned())//owned by the player
                     {
-                        //sell the item
+                        //drop the item
                         Log.d("DEBUG", "Drop item " + nameTextView.getText().toString());
-                        //deduct mass
-                        player.updateMass(-((Equipment) item).getMass());
                         //remove from player
                         player.removeEquipment((Equipment) item);
                         //add to area
@@ -147,21 +158,25 @@ public class Wilderness extends AppCompatActivity {
                     else if(!item.isOwned())//not owned, area item
                     {
                         //buy the item
-                        Log.d("DEBUG", "Pickup item " + nameTextView.getText().toString());
+                        Log.d("DEBUG","Pickup item "+ nameTextView.getText().toString());
+
                         //if instance of food
-                        if (item instanceof Food) {
+                        if(item instanceof Food)
+                        {
                             //update health
-                            player.updateHealth(((Food) item).getHealth());
-                        } else if (item instanceof Equipment) {
-                            //else if equip
-                            //update mass
-                            player.updateMass(((Equipment) item).getMass());
-                            //add to player
-                            player.addEquipment((Equipment) item);
+                            player.updateHealth(((Food)item).getHealth());
                         }
-                        //remove from area
+                        else if(item instanceof Equipment)
+                        {
+                            //else if equip
+                            //add to player
+                            player.addEquipment((Equipment)item);
+                        }
                         area.removeItem(item);
                     }
+                    updateStatusBar();
+                    buildItemList();
+                    adapter.notifyDataSetChanged();
                 }
             });
 
@@ -212,21 +227,23 @@ public class Wilderness extends AppCompatActivity {
             }
 
 
-            //hide USE button if item not useable
-            if(!item.isUseable() && item.isOwned())
+            if(!item.isOwned())//not owned, so in area
             {
                 useButton.setVisibility(View.GONE);
+            }
+            if(item.isOwned() && !item.isUseable())//owned but not useable
+            {
+                useButton.setVisibility(View.GONE);
+            }
+            if(item.isOwned() && item.isUseable())//newly aquired owned and useable
+            {
+                useButton.setVisibility(View.VISIBLE);
             }
         }
     }
 
     private class MyAdapter extends RecyclerView.Adapter<MyDataVHolder>
     {
-        private List<Item>items;
-        public MyAdapter(List<Item>items)
-        {
-            this.items = items;
-        }
 
         @Override
         public int getItemCount()

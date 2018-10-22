@@ -64,12 +64,15 @@ public class Player
     public void addEquipment(Equipment inEquip)
     {
         inEquip.toggleOwned();
+        updateMass(inEquip.getMass());
         equipment.add(inEquip);
+
     }
 
     public void removeEquipment(Equipment inEquip)
     {
         inEquip.toggleOwned();
+        updateMass(-inEquip.getMass());
         equipment.remove(inEquip);
     }
 

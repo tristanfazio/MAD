@@ -1,5 +1,7 @@
 package tfazio.mad_assignment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -71,15 +73,10 @@ public class Market extends AppCompatActivity
         flavourTextView.setText("What are you buyin?");
 
         //fill list
+        buildItemsList();
 
-        items = new ArrayList<>();
-        items.clear();
-        int[] xy = gameData.getPlayer().getPosition();//get player position info
-        items .addAll(gameData.getArea(xy).getItems());//get item list from area
-        items.addAll(gameData.getPlayer().getEquipment());//get item list from player
-
-
-        adapter = new MyAdapter(items);
+        //set the adapter
+        adapter = new MyAdapter();
         recViewFrag.setAdapter(adapter);
 
         //set button listeners
@@ -112,17 +109,25 @@ public class Market extends AppCompatActivity
         statusBarFrag.setCash();
     }
 
+    private void buildItemsList()
+    {
+        items = new ArrayList<>();
+        items.clear();
+        int[] xy = gameData.getPlayer().getPosition();//get player position info
+        items .addAll(gameData.getArea(xy).getItems());//get item list from area
+        items.addAll(gameData.getPlayer().getEquipment());//get item list from player
+    }
+
     private class MyDataVHolder extends RecyclerView.ViewHolder
     {
-        private final Button actionButton;
-        private final TextView extraTextVeiw;
-        private final TextView extraLabelTextView;
-        private final TextView priceTextView;
-        private final TextView nameTextView;
-        private final Button useButton;
-        private final TextView descriptionTextView;
+        private  Button actionButton;
+        private  TextView extraTextView;
+        private  TextView extraLabelTextView;
+        private  TextView priceTextView;
+        private  TextView nameTextView;
+        private  Button useButton;
+        private  TextView descriptionTextView;
         Item item;
-
 
         public MyDataVHolder(LayoutInflater li, ViewGroup parent)
         {
@@ -133,7 +138,7 @@ public class Market extends AppCompatActivity
             descriptionTextView = (TextView)itemView.findViewById(R.id.descriptionTextView);
             priceTextView = (TextView)itemView.findViewById(R.id.priceTextView);
             extraLabelTextView = (TextView)itemView.findViewById(R.id.extraLabelTextView);
-            extraTextVeiw = (TextView)itemView.findViewById(R.id.extraTextView);
+            extraTextView = (TextView)itemView.findViewById(R.id.extraTextView);
             actionButton = (Button)itemView.findViewById(R.id.actionButton);
             useButton = (Button)itemView.findViewById(R.id.useButton);
 
@@ -148,8 +153,6 @@ public class Market extends AppCompatActivity
                     {
                         //sell the item
                         Log.d("DEBUG", "Sell item " + nameTextView.getText().toString());
-                        //deduct mass
-                        player.updateMass(-((Equipment) item).getMass());
                         //add cash
                         player.updateCash(item.getValue());
                         //remove from player
@@ -161,26 +164,44 @@ public class Market extends AppCompatActivity
                     {
                         //buy the item
                         Log.d("DEBUG","Buy item "+ nameTextView.getText().toString());
-                        //deduct cash
-                        player.updateCash(-item.getValue());
-                        //if instance of food
-                        if(item instanceof Food)
+                        if(player.getCash()>=item.getValue())//check player has money
                         {
-                            //update health
-                            player.updateHealth(((Food)item).getHealth());
+                            //deduct cash
+                            player.updateCash(-item.getValue());
+                            //if instance of food
+                            if(item instanceof Food)
+                            {
+                                //update health
+                                player.updateHealth(((Food)item).getHealth());
+                            }
+                            else if(item instanceof Equipment)
+                            {
+                                //else if equip
+                                //add to player
+                                player.addEquipment((Equipment)item);
+                            }
+                            //remove from area
+                            area.removeItem(item);
                         }
-                        else if(item instanceof Equipment)
+                        else
                         {
-                            //else if equip
-                            //update mass
-                            player.updateMass(((Equipment) item).getMass());
-                            //add to player
-                            player.addEquipment((Equipment)item);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(Market.this);
+                            // 2. Chain together various setter methods to set the dialog characteristics
+                            builder.setMessage("You do not have enough cash for that!")
+                                    .setTitle("Uh Oh!");
+                            // Add the buttons
+                            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // User clicked OK button
+                                }
+                            });
+                            // 3. Get the AlertDialog from create()
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
                         }
-                        //remove from area
-                        area.removeItem(item);
                     }
                     updateStatusBar();
+                    buildItemsList();
                     adapter.notifyDataSetChanged();
                 }
             });
@@ -215,12 +236,12 @@ public class Market extends AppCompatActivity
             if(item instanceof Equipment)//switch label depending on needed info
             {
                 extraLabelTextView.setText("Mass:");
-                extraTextVeiw.setText(Double.toString(((Equipment) item).getMass()));
+                extraTextView.setText(Double.toString(((Equipment) item).getMass()));
             }
             else if(item instanceof Food)
             {
                 extraLabelTextView.setText("Health:");
-                extraTextVeiw.setText(Double.toString(((Food) item).getHealth()));
+                extraTextView.setText(Double.toString(((Food) item).getHealth()));
             }
 
             if(item.isOwned())
@@ -233,20 +254,23 @@ public class Market extends AppCompatActivity
             }
 
 
-            if(!item.isUseable() && item.isOwned())
+            if(!item.isOwned())//not owned, so in area
             {
                 useButton.setVisibility(View.GONE);
+            }
+            if(item.isOwned() && !item.isUseable())//owned but not useable
+            {
+                useButton.setVisibility(View.GONE);
+            }
+            if(item.isOwned() && item.isUseable())//newly aquired owned and useable
+            {
+                useButton.setVisibility(View.VISIBLE);
             }
         }
     }
 
     private class MyAdapter extends RecyclerView.Adapter<MyDataVHolder>
     {
-        private List<Item>items;
-        public MyAdapter(List<Item>items)
-        {
-            this.items = items;
-        }
 
         @Override
         public int getItemCount()

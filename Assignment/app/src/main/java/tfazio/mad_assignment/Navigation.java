@@ -175,7 +175,7 @@ public class Navigation extends AppCompatActivity {
             player.updatePosition(x,y);
             //update the current area
             updateInfoFrag();
-            statusBarFrag.setHealth();
+            updateStatusBar();
             int xy[] = {x,y};
             gameData.getArea(xy).toggleExplored();
         }
