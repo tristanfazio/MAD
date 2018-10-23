@@ -11,7 +11,7 @@
         <item name="android:textColorPrimary">@color/colorPrimary</item>
         <item name="android:textColorPrimaryInverse">@color/colorLight</item>
         <item name="android:textColorSecondary">@color/colorPrimary</item>
-        <item name="android:textColorSecondaryInverse">@color/colorLight</item>
+        <item name="android:textColorSecondaryInverse">@color/colorSecondaryLight</item>
     </style>
 
 </resources>

@@ -85,18 +85,13 @@ public class Wilderness extends AppCompatActivity {
                 startActivity(new Intent(Wilderness.this,Navigation.class));
             }
         });
-
-
-
     }
 
     @Override
     protected void onResume() {
         //fill statusbar with values
         super.onResume();
-        statusBarFrag.setCash();
-        statusBarFrag.setEquip();
-        statusBarFrag.setHealth();
+        updateStatusBar();
     }
 
     private void updateStatusBar()
@@ -110,9 +105,9 @@ public class Wilderness extends AppCompatActivity {
     {
         items = new ArrayList<>();
         items.clear();
-        int[] xy = gameData.getPlayer().getPosition();
-        items = gameData.getArea(xy).getItems();
-        items.addAll(gameData.getPlayer().getEquipment());
+        int[] xy = gameData.getPlayer().getPosition();//get player position info
+        items .addAll(gameData.getArea(xy).getItems());//get item list from area
+        items.addAll(gameData.getPlayer().getEquipment());//get item list from player
     }
 
     private class MyDataVHolder extends RecyclerView.ViewHolder

@@ -87,8 +87,8 @@ public class GameData
                 isTown = randomArea();
                 grid[col][row] = new Area(isTown);
                 grid[col][row].addItem(new Food("Test Food","some testing description",1,1));
-                grid[col][row].addItem(new Equipment("Test Area Equip","this is a test desc",1,1.0,true,true));
-                grid[col][row].addItem(new Equipment("Test Area Equip","this is a test desc",1,1.0,true,false));
+                grid[col][row].addItem(new Equipment("Test Area Equip 1","this is a test desc",1,1.0,true,true));
+                grid[col][row].addItem(new Equipment("Test Area Equip 2","this is a test desc",1,1.0,true,false));
             }
         }
     }

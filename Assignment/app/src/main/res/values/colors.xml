@@ -5,6 +5,8 @@
     <color name="colorAccent">#EF6461</color>
     <color name="colorLight">#E8E9EB</color>
     <color name="colorBackground">#E0DFD5</color>
+    <color name="colorSecondaryLight">#FFE6CA9C</color>
+    <color name="item">#e0e0e0</color>
 
 
 </resources>
