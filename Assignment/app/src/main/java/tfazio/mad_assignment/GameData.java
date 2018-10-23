@@ -61,6 +61,8 @@ public class GameData
     }
 
     public Player getPlayer(){return player;}
+    public int getXMax(){return xMax;}
+    public int getYMaz(){return yMax;}
 
     //SETTERS
 
