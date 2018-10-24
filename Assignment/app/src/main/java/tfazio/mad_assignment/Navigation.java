@@ -88,7 +88,7 @@ public class Navigation extends AppCompatActivity {
                 Log.d("DEBUG","N button press");
 
                 newPlayerPos = player.getPosition();
-                newPlayerPos[1]++;
+                newPlayerPos[0]--;
                 movePlayer(newPlayerPos[0],newPlayerPos[1]);
             }
         });
@@ -99,7 +99,7 @@ public class Navigation extends AppCompatActivity {
             public void onClick(View v)
             {
                 newPlayerPos = player.getPosition();
-                newPlayerPos[1]--;
+                newPlayerPos[0]++;
                 movePlayer(newPlayerPos[0],newPlayerPos[1]);
             }
         });
@@ -109,7 +109,7 @@ public class Navigation extends AppCompatActivity {
             public void onClick(View v)
             {
                 newPlayerPos = player.getPosition();
-                newPlayerPos[0]++;
+                newPlayerPos[1]++;
                 movePlayer(newPlayerPos[0],newPlayerPos[1]);
             }
         });
@@ -119,7 +119,7 @@ public class Navigation extends AppCompatActivity {
             public void onClick(View v)
             {
                 newPlayerPos = player.getPosition();
-                newPlayerPos[0]--;
+                newPlayerPos[1]--;
                 movePlayer(newPlayerPos[0],newPlayerPos[1]);
             }
         });
@@ -149,6 +149,7 @@ public class Navigation extends AppCompatActivity {
             public void onClick(View v)
             {
                 Log.d("DEBUG","Overview Pressed");
+                startActivity(new Intent(Navigation.this,Overview.class));
 
             }
         });

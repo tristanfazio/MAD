@@ -12,6 +12,7 @@ public class Area {
     String description;
     boolean starred;
     boolean explored;
+    int x,y;
 
     //default constructor
     public Area()
@@ -27,27 +28,34 @@ public class Area {
     }
 
     //alternate constructor with town/wilderness indication
-    public Area(Boolean isTown)
+    public Area(Boolean isTown,int inX, int inY)
     {
         town = isTown;
         items = new ArrayList<Item>();
         description = "";
         starred = false;
         explored = false;
+        x=inX;
+        y=inY;
         Log.d("DEBUG","\n   Creating Area. Town: " + town);
     }
 
     //getters
     public List<Item> getItems(){return items;}
     public String getDescription(){return description;}
-    public boolean getExplored(){ return explored; }
     public boolean getStarred(){ return starred; }
+    public int getX(){return x;}
+    public int getY(){return y;}
+    public int[] getXY(){return new int[]{x,y};}
+    public boolean isExplored()
+    {
+        return explored;
+    }
     public boolean isTown()
     {
         Log.d("DEBUG","Is Town? " + town);
         return town;
     }
-
     //setters
     public void addItem(Item inItem)
     {

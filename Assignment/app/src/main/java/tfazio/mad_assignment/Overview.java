@@ -34,6 +34,7 @@ public class Overview extends AppCompatActivity
     private OverviewMap mapFrag;
     private AreaInfo areaInfoFrag;
 
+
     @Override
     protected void onCreate(Bundle bundle)
     {
@@ -76,5 +77,33 @@ public class Overview extends AppCompatActivity
 
         //identify UI elements
         closeButton = (Button)findViewById(R.id.closeButton);
+
+        closeButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                startActivity(new Intent(Overview.this,Navigation.class));
+            }
+        });
+
+    }
+
+    @Override
+    protected void onResume() {
+        /* update all UI elements */
+        super.onResume();
+        areaInfoFrag.updateAreaInfo();
+        statusBarFrag.updateStatusBar();
+    }
+
+    public AreaInfo getAreaInfoFrag()
+    {
+        return areaInfoFrag;
+    }
+
+    public OverviewMap getMapFrag()
+    {
+       return mapFrag;
     }
 }

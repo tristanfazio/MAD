@@ -18,8 +18,10 @@
         </intent-filter>
         </activity>
         <activity android:name=".Market"
-            android:theme="@style/MyTheme" />
+            android:theme="@style/MyTheme"/>
         <activity android:name=".Wilderness"
-            android:theme="@style/MyTheme"></activity>
+            android:theme="@style/MyTheme"/>
+        <activity android:name=".Overview"
+            android:theme="@style/MyTheme"/>
     </application>
 </manifest>

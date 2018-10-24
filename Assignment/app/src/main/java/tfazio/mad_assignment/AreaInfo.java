@@ -32,7 +32,7 @@ public class AreaInfo extends Fragment
         descriptionEditText = (EditText)view.findViewById(R.id.descriptionEditText);
         playerPosTextView = (TextView)view.findViewById(R.id.playerposTextView);
         starredImageView = (ImageView)view.findViewById(R.id.starredImageView);
-        coordsTextView = (TextView)view.findViewById(R.id.starredImageView);
+        coordsTextView = (TextView)view.findViewById(R.id.coordsTextView);
 
         gameData = gameData.getInstance();
 
@@ -49,6 +49,11 @@ public class AreaInfo extends Fragment
                 Log.d("DEBUG","\n Toggle Star");
                 gameData.getArea(gameData.getPlayer().getPosition()).toggleStarred();
                 setStarred(gameData.getArea(gameData.getPlayer().getPosition()).getStarred());
+
+                if(getActivity() instanceof Overview)
+                {
+                    ((Overview) getActivity()).getMapFrag().notifyAdapter();
+                }
             }
         });
 
@@ -121,6 +126,14 @@ public class AreaInfo extends Fragment
         setPlayerPos(gameData.getArea(gameData.getPlayer().getPosition()).isTown());
         setStarred(gameData.getArea(gameData.getPlayer().getPosition()).getStarred());
         setCoords(gameData.getPlayer().getPosition());
+    }
+
+    public void setAreaInfo(Area area)
+    {
+        setDescription(area.getDescription());
+        setPlayerPos(area.isTown());
+        setStarred(area.getStarred());
+        setCoords(area.getXY());
     }
 
 }

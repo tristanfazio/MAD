@@ -41,7 +41,7 @@ public class StatusBar extends Fragment
             @Override
             public void onClick(View v)
             {
-                restart(v);
+                gameData.restart();
             }
         });
 
@@ -63,10 +63,6 @@ public class StatusBar extends Fragment
         cashTextView.setText(Integer.toString(gameData.getPlayer().getCash()));
     }
 
-    public void restart(View view)
-    {
-
-    }
     public void updateStatusBar()
     {
         setHealth();

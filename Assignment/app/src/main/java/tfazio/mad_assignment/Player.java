@@ -1,8 +1,11 @@
 package tfazio.mad_assignment;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Player
 {
@@ -14,14 +17,16 @@ public class Player
     double health;
     double equipmentMass;
     List<Equipment> equipment;
+    GameData gameData;
 
     //default constructor
-    public Player()
+    public Player(int xMax, int yMax)
     {
         Log.d("DEBUG","Creating Player");
 
-        colLocation = 0;
-        rowLocation = 0;
+        //place starting position at random location
+        colLocation = new Random().nextInt(xMax);
+        rowLocation = new Random().nextInt(yMax);
         cash = 100;
         health = 100.0;
         equipmentMass = 0.0;

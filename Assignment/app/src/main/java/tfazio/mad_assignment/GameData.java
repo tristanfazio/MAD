@@ -18,17 +18,14 @@ public class GameData
     //default constructor, creates a testgrid
     private GameData()
     {
-        //initialize a default 2x2 grid
-        createGrid(2,2);
-        player = new Player();
-        instance = this;
+
     }
 
     private GameData(int x, int y)
     {
         //initialize a x*y grid
         createGrid(x,y);
-        player = new Player();
+        player = new Player(x,y);
         player.addEquipment(new Equipment("Test Player Equip","this is a test desc",1,1.0,true,true));
         instance = this;
     }
@@ -55,7 +52,7 @@ public class GameData
     {
         if(instance == null)
         {
-            instance = new GameData(3,3);
+            instance = new GameData(5,5);
         }
         return instance;
     }
@@ -73,10 +70,12 @@ public class GameData
         grid = new Area[x][y];
         xMax = x-1;
         yMax = y-1;
+        boolean oneTown;
         boolean isTown;
 
         //assign Areas to grid
         //for every row
+        oneTown = false;
         for(int row = 0;row < y; row++)
         {
             //for every column
@@ -84,11 +83,20 @@ public class GameData
             {
                 //assign a newly constructed area
                 Log.d("DEBUG","\n   Targeting: "+ col+","+row);
-                isTown = randomArea();
-                grid[col][row] = new Area(isTown);
-                grid[col][row].addItem(new Food("Test Food","some testing description",1,1));
-                grid[col][row].addItem(new Equipment("Test Area Equip 1","this is a test desc",1,1.0,true,true));
-                grid[col][row].addItem(new Equipment("Test Area Equip 2","this is a test desc",1,1.0,true,false));
+                isTown = randomArea();//generate if area is town or wild
+                if(isTown)
+                {
+                    oneTown=true;//if there is atleast one town generated
+                }
+
+                if((row==xMax&&col==yMax)&&(!oneTown))//if it's the final row and col position, and no towns generated
+                {
+                    isTown = true; //next area is town
+                }
+                grid[row][col] = new Area(isTown,row,col);
+                grid[row][col].addItem(new Food("Test Food","some testing description",1,1));
+                grid[row][col].addItem(new Equipment("Test Area Equip 1","this is a test desc",1,1.0,true,true));
+                grid[row][col].addItem(new Equipment("Test Area Equip 2","this is a test desc",1,1.0,true,false));
             }
         }
     }
@@ -121,6 +129,11 @@ public class GameData
         }
 
         return nextArea;
+    }
+
+    public void restart()
+    {
+
     }
 
 
