@@ -158,8 +158,8 @@ public class Navigation extends AppCompatActivity {
     protected void onResume() {
         /* update all UI elements */
         super.onResume();
-        updateInfoFrag();
-        updateStatusBar();
+        areaInfoFrag.updateAreaInfo();
+        statusBarFrag.updateStatusBar();
     }
 
     private void movePlayer(int x, int y)
@@ -174,8 +174,8 @@ public class Navigation extends AppCompatActivity {
 
             player.updatePosition(x,y);
             //update the current area
-            updateInfoFrag();
-            updateStatusBar();
+            areaInfoFrag.updateAreaInfo();
+            statusBarFrag.updateStatusBar();
             int xy[] = {x,y};
             gameData.getArea(xy).toggleExplored();
         }
@@ -198,20 +198,6 @@ public class Navigation extends AppCompatActivity {
             AlertDialog dialog = builder.create();
             dialog.show();
         }
-    }
-
-    private void updateStatusBar()
-    {
-        statusBarFrag.setHealth();
-        statusBarFrag.setEquip();
-        statusBarFrag.setCash();
-    }
-
-    private void updateInfoFrag()
-    {
-        areaInfoFrag.setDescription();
-        areaInfoFrag.setStarred();
-        areaInfoFrag.setPlayerPos();
     }
 
 

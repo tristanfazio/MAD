@@ -8,12 +8,12 @@ public class GameData
 {
 
     //Class variables
-    Area[][] grid;
-    Player player;
-    static GameData instance;
+    private Area[][] grid;
+    private Player player;
+    private static GameData instance;
     private int xMax;
     private int yMax;
-    Random random = new Random();
+    private Random random = new Random();
 
     //default constructor, creates a testgrid
     private GameData()
@@ -42,11 +42,11 @@ public class GameData
         return grid[xy[0]][xy[1]];
     }
 
-    public int getxMax()
+    public int getXMax()
     {
         return xMax;
     }
-    public int getyMax()
+    public int getYMax()
     {
         return yMax;
     }
@@ -61,8 +61,6 @@ public class GameData
     }
 
     public Player getPlayer(){return player;}
-    public int getXMax(){return xMax;}
-    public int getYMaz(){return yMax;}
 
     //SETTERS
 

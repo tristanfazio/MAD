@@ -64,7 +64,6 @@ public class Market extends AppCompatActivity
 
         //get rec view
         recViewFrag = (RecyclerView)findViewById(R.id.f_itemRecView);
-
         //rec view layout
         recViewFrag.setLayoutManager(new LinearLayoutManager(Market.this));
 
@@ -88,25 +87,13 @@ public class Market extends AppCompatActivity
                 startActivity(new Intent(Market.this,Navigation.class));
             }
         });
-
-
-
     }
 
     @Override
     protected void onResume() {
         //fill statusbar with values
         super.onResume();
-        statusBarFrag.setCash();
-        statusBarFrag.setEquip();
-        statusBarFrag.setHealth();
-    }
-
-    private void updateStatusBar()
-    {
-        statusBarFrag.setHealth();
-        statusBarFrag.setEquip();
-        statusBarFrag.setCash();
+        statusBarFrag.updateStatusBar();
     }
 
     private void buildItemsList()
@@ -200,7 +187,7 @@ public class Market extends AppCompatActivity
                             dialog.show();
                         }
                     }
-                    updateStatusBar();
+                    statusBarFrag.updateStatusBar();
                     buildItemsList();
                     adapter.notifyDataSetChanged();
                 }

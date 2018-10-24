@@ -13,11 +13,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class AreaInfo extends Fragment
 {
     private ImageView starredImageView;
     private EditText descriptionEditText;
     private TextView playerPosTextView;
+    private TextView coordsTextView;
     GameData gameData;
 
     @Override
@@ -29,11 +32,13 @@ public class AreaInfo extends Fragment
         descriptionEditText = (EditText)view.findViewById(R.id.descriptionEditText);
         playerPosTextView = (TextView)view.findViewById(R.id.playerposTextView);
         starredImageView = (ImageView)view.findViewById(R.id.starredImageView);
+        coordsTextView = (TextView)view.findViewById(R.id.starredImageView);
 
         gameData = gameData.getInstance();
 
         //set UI elements from area info
 
+        updateAreaInfo();
 
         //listener for star press
         starredImageView.setOnClickListener(new View.OnClickListener()
@@ -43,7 +48,7 @@ public class AreaInfo extends Fragment
             {
                 Log.d("DEBUG","\n Toggle Star");
                 gameData.getArea(gameData.getPlayer().getPosition()).toggleStarred();
-                setStarred();
+                setStarred(gameData.getArea(gameData.getPlayer().getPosition()).getStarred());
             }
         });
 
@@ -69,19 +74,19 @@ public class AreaInfo extends Fragment
         return  view;
     }
 
-    public String getPlayerPos()
+    public String getPlayerPosText()
     {
         return playerPosTextView.toString();
     }
 
-    public void setDescription()
+    public void setDescription(String inDescription)
     {
-        descriptionEditText.setText(gameData.getArea(gameData.getPlayer().getPosition()).getDescription());
+        descriptionEditText.setText(inDescription);
     }
 
-    public void setPlayerPos()
+    public void setPlayerPos(boolean inPos)
     {
-        if(gameData.getArea(gameData.getPlayer().getPosition()).isTown())
+        if(inPos)
         {
             playerPosTextView.setText("Town");
             Log.d("DEBUG","Set text to town");
@@ -93,9 +98,9 @@ public class AreaInfo extends Fragment
         }
     }
 
-    public void setStarred()
+    public void setStarred(boolean inStarred)
     {
-        if(gameData.getArea(gameData.getPlayer().getPosition()).getStarred())
+        if(inStarred)
         {
             starredImageView.setImageResource(android.R.drawable.star_big_on);
         }
@@ -103,6 +108,19 @@ public class AreaInfo extends Fragment
         {
             starredImageView.setImageResource(android.R.drawable.star_big_off);
         }
+    }
+
+    public void setCoords(int[] inCoords)
+    {
+        coordsTextView.setText("" + inCoords[0] + "," + inCoords[1]);
+    }
+
+    public void updateAreaInfo()
+    {
+        setDescription(gameData.getArea(gameData.getPlayer().getPosition()).getDescription());
+        setPlayerPos(gameData.getArea(gameData.getPlayer().getPosition()).isTown());
+        setStarred(gameData.getArea(gameData.getPlayer().getPosition()).getStarred());
+        setCoords(gameData.getPlayer().getPosition());
     }
 
 }

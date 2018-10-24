@@ -91,17 +91,10 @@ public class Wilderness extends AppCompatActivity {
     protected void onResume() {
         //fill statusbar with values
         super.onResume();
-        updateStatusBar();
+        statusBarFrag.updateStatusBar();
     }
 
-    private void updateStatusBar()
-    {
-        statusBarFrag.setHealth();
-        statusBarFrag.setEquip();
-        statusBarFrag.setCash();
-    }
-
-    public void buildItemList()
+     public void buildItemList()
     {
         items = new ArrayList<>();
         items.clear();
@@ -169,7 +162,7 @@ public class Wilderness extends AppCompatActivity {
                         }
                         area.removeItem(item);
                     }
-                    updateStatusBar();
+                    statusBarFrag.updateStatusBar();
                     buildItemList();
                     adapter.notifyDataSetChanged();
                 }

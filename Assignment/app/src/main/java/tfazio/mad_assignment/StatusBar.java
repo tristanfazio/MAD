@@ -67,4 +67,10 @@ public class StatusBar extends Fragment
     {
 
     }
+    public void updateStatusBar()
+    {
+        setHealth();
+        setEquip();
+        setCash();
+    }
 }
