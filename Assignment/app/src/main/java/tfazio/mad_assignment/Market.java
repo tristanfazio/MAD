@@ -84,7 +84,7 @@ public class Market extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                startActivity(new Intent(Market.this,Navigation.class));
+                finish();
             }
         });
     }
@@ -187,9 +187,22 @@ public class Market extends AppCompatActivity
                             dialog.show();
                         }
                     }
+                    //update UI's
                     statusBarFrag.updateStatusBar();
                     buildItemsList();
                     adapter.notifyDataSetChanged();
+
+                    //check conditions
+                    gameData = gameData.getInstance();
+                    player=gameData.getPlayer();
+                    if(player.checkLose())
+                    {
+                        finish();//finish activity and go back to nav
+                    }
+                    if(player.checkWin())
+                    {
+                        finish();//finish activity and go back to nav
+                    }
                 }
             });
 
@@ -199,10 +212,45 @@ public class Market extends AppCompatActivity
                 @Override
                 public void onClick(View v)
                 {
-                    if(item.isUseable()) {
+                    if(item.isUseable())
+                    {
                         //Use the item
 
-                        Log.d("DEBUG", "Using item " + nameTextView.getText().toString());
+                        Log.d("DEBUG","Using item "+ nameTextView.getText().toString());
+                        if(item.getName().equals("Smell O'Scope"))
+                        {
+                            startActivity(new Intent(Market.this,SmellOScope.class));
+                            player.removeEquipment((Equipment)item);
+                        }else
+                        if(item.getName().equals("Ben Kenobi"))
+                        {
+                            List<Item> newitems = area.getItems();
+                            for(Item object: newitems)
+                            {
+                                if(object instanceof Food)
+                                {
+                                    //update health
+                                    player.updateHealth(((Food)object).getHealth());
+                                }
+                                else if(object instanceof Equipment)
+                                {
+                                    //else if equip
+                                    //add to player
+                                    player.addEquipment((Equipment)object);
+                                }
+                                //remove from area
+                                area.removeItem(object);
+                            }
+                            player.removeEquipment((Equipment)item);
+                        }else
+                        if(item.getName().equals("Improbability Drive"))
+                        {
+                                gameData.rebuildGrid();
+                            player.removeEquipment((Equipment)item);
+                        }
+                        statusBarFrag.updateStatusBar();
+                        buildItemsList();
+                        adapter.notifyDataSetChanged();
                     }
                 }
             });

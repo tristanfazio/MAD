@@ -156,11 +156,14 @@ public class Navigation extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         /* update all UI elements */
         super.onResume();
         areaInfoFrag.updateAreaInfo();
         statusBarFrag.updateStatusBar();
+
+        checkConditions();
     }
 
     private void movePlayer(int x, int y)
@@ -179,6 +182,8 @@ public class Navigation extends AppCompatActivity {
             statusBarFrag.updateStatusBar();
             int xy[] = {x,y};
             gameData.getArea(xy).toggleExplored();
+
+            checkConditions();
         }
         else
         {
@@ -196,6 +201,50 @@ public class Navigation extends AppCompatActivity {
                 }
             });
             // 3. Get the AlertDialog from create()
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+    }
+
+    public void checkConditions()
+    {
+        gameData = gameData.getInstance();
+        player=gameData.getPlayer();
+        if(player.checkLose())
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("You've run out of health\n\n Play again...?")
+                    .setTitle("GAME OVER!!!");
+            builder.setPositiveButton("Play Again", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    gameData.restart();
+                    recreate();
+                }
+            });
+            builder.setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    finish();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+        if(player.checkWin())
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("You collected all of the treasures")
+                    .setTitle("YOU WIN!!!!");
+            builder.setPositiveButton("Play Again", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    gameData.restart();
+                    recreate();
+                }
+            });
+            builder.setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    finish();
+                }
+            });
             AlertDialog dialog = builder.create();
             dialog.show();
         }

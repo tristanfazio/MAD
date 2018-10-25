@@ -42,6 +42,7 @@ public class StatusBar extends Fragment
             public void onClick(View v)
             {
                 gameData.restart();
+                startActivity(new Intent(getActivity(),Navigation.class));
             }
         });
 

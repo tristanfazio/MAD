@@ -9,18 +9,19 @@
     android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center_vertical|center_horizontal"
-        android:orientation="vertical">
+        android:gravity="left|center_vertical|center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.75">
 
         <TextView
             android:id="@+id/nameTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:gravity="left"
             android:text="Name"
@@ -28,7 +29,7 @@
             android:textSize="18sp"
             android:textStyle="bold|italic"
             app:layout_constraintEnd_toStartOf="@+id/priceLabel"
-            tools:layout_editor_absoluteY="59dp" />
+            />
 
         <TextView
             android:id="@+id/descriptionTextView"
@@ -64,7 +65,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/priceTextView"
-                tools:layout_editor_absoluteY="59dp" />
+                />
 
             <TextView
                 android:id="@+id/priceTextView"
@@ -79,7 +80,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/extraTextView"
-                tools:layout_editor_absoluteY="59dp" />
+                />
 
             <TextView
                 android:id="@+id/extraLabelTextView"
@@ -94,7 +95,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/extraTextView"
-                tools:layout_editor_absoluteY="59dp" />
+                />
 
             <TextView
                 android:id="@+id/extraTextView"
@@ -106,8 +107,7 @@
                 android:text="0"
                 android:textColor="@color/colorPrimary"
                 android:textSize="12sp"
-                tools:layout_editor_absoluteX="198dp"
-                tools:layout_editor_absoluteY="59dp" />
+                />
 
         </LinearLayout>
 
@@ -117,38 +117,36 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="center_vertical|center_horizontal"
+        android:gravity="right|center_vertical"
         android:orientation="vertical"
-        android:padding="0dp">
+        android:padding="0dp"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.25">
 
         <Button
             android:id="@+id/actionButton"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_margin="8dp"
-            android:layout_marginStart="8dp"
             android:gravity="center_vertical|center_horizontal"
             android:padding="0dp"
             android:text="Action"
             android:textColor="@color/colorPrimary"
             android:textSize="10sp"
             android:textStyle="bold|italic"
-            app:layout_constraintStart_toEndOf="@+id/extraTextView"
-            tools:layout_editor_absoluteY="59dp" />
+            app:layout_constraintStart_toEndOf="@+id/extraTextView" />
 
         <Button
             android:id="@+id/useButton"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_margin="8dp"
-            android:layout_marginStart="8dp"
             android:gravity="center_vertical|center_horizontal"
             android:text="Use"
             android:textColor="@color/colorPrimary"
             android:textSize="10sp"
             android:textStyle="bold|italic"
-            app:layout_constraintStart_toEndOf="@+id/extraTextView"
-            tools:layout_editor_absoluteY="59dp" />
+            app:layout_constraintStart_toEndOf="@+id/extraTextView" />
     </LinearLayout>
 
 </LinearLayout>

@@ -9,19 +9,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
-        <activity android:name=".Navigation"
+        <activity
+            android:name=".Navigation"
             android:theme="@style/MyTheme">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".Market"
-            android:theme="@style/MyTheme"/>
-        <activity android:name=".Wilderness"
-            android:theme="@style/MyTheme"/>
-        <activity android:name=".Overview"
-            android:theme="@style/MyTheme"/>
+        <activity
+            android:name=".Market"
+            android:theme="@style/MyTheme" />
+        <activity
+            android:name=".Wilderness"
+            android:theme="@style/MyTheme" />
+        <activity
+            android:name=".Overview"
+            android:theme="@style/MyTheme" />
+        <activity
+            android:name=".SmellOScope"
+            android:label="@string/title_activity_smell_oscope"
+            android:theme="@style/MyTheme"></activity>
     </application>
+
 </manifest>

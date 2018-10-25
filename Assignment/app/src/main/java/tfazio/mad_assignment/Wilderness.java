@@ -82,7 +82,7 @@ public class Wilderness extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                startActivity(new Intent(Wilderness.this,Navigation.class));
+                finish();
             }
         });
     }
@@ -162,9 +162,22 @@ public class Wilderness extends AppCompatActivity {
                         }
                         area.removeItem(item);
                     }
+                    //update UI's
                     statusBarFrag.updateStatusBar();
                     buildItemList();
                     adapter.notifyDataSetChanged();
+
+                    //check conditions
+                    gameData = gameData.getInstance();
+                    player=gameData.getPlayer();
+                    if(player.checkLose())
+                    {
+                        finish();//finish activity and go back to nav
+                    }
+                    if(player.checkWin())
+                    {
+                        finish();//finish activity and go back to nav
+                    }
                 }
             });
 
@@ -178,6 +191,40 @@ public class Wilderness extends AppCompatActivity {
                     if(item.isUseable())
                     {
                         Log.d("DEBUG","Using item "+ nameTextView.getText().toString());
+                        if(item.getName().equals("Smell O'Scope"))
+                        {
+                            startActivity(new Intent(Wilderness.this,SmellOScope.class));
+                            player.removeEquipment((Equipment)item);
+                        }else
+                        if(item.getName().equals("Ben Kenobi"))
+                        {
+                            List<Item> newitems = area.getItems();
+                            for(Item object: newitems)
+                            {
+                                if(object instanceof Food)
+                                {
+                                    //update health
+                                    player.updateHealth(((Food)object).getHealth());
+                                }
+                                else if(object instanceof Equipment)
+                                {
+                                    //else if equip
+                                    //add to player
+                                    player.addEquipment((Equipment)object);
+                                }
+                                //remove from area
+                                area.removeItem(object);
+                            }
+                            player.removeEquipment((Equipment)item);
+                        }else
+                        if(item.getName().equals("Improbability Drive"))
+                        {
+                            gameData.rebuildGrid();
+                            player.removeEquipment((Equipment)item);
+                        }
+                        statusBarFrag.updateStatusBar();
+                        buildItemList();
+                        adapter.notifyDataSetChanged();
                     }
                 }
             });

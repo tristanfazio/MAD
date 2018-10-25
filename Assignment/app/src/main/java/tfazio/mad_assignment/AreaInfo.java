@@ -22,6 +22,8 @@ public class AreaInfo extends Fragment
     private TextView playerPosTextView;
     private TextView coordsTextView;
     GameData gameData;
+    Area area;
+    Player player;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup ui, Bundle bundle)
@@ -35,7 +37,8 @@ public class AreaInfo extends Fragment
         coordsTextView = (TextView)view.findViewById(R.id.coordsTextView);
 
         gameData = gameData.getInstance();
-
+        player=gameData.getPlayer();
+        area = gameData.getArea(player.getPosition());
         //set UI elements from area info
 
         updateAreaInfo();
@@ -47,8 +50,8 @@ public class AreaInfo extends Fragment
             public void onClick(View v)
             {
                 Log.d("DEBUG","\n Toggle Star");
-                gameData.getArea(gameData.getPlayer().getPosition()).toggleStarred();
-                setStarred(gameData.getArea(gameData.getPlayer().getPosition()).getStarred());
+                area.toggleStarred();
+                setStarred(area.getStarred());
 
                 if(getActivity() instanceof Overview)
                 {
@@ -70,7 +73,7 @@ public class AreaInfo extends Fragment
             @Override
             public void afterTextChanged(Editable editable)
             {
-                gameData.getArea(gameData.getPlayer().getPosition()).setDescription(descriptionEditText.getText().toString());
+                area.setDescription(descriptionEditText.getText().toString());
             }
         });
 
@@ -117,19 +120,23 @@ public class AreaInfo extends Fragment
 
     public void setCoords(int[] inCoords)
     {
-        coordsTextView.setText("" + inCoords[0] + "," + inCoords[1]);
+        //set the coords label, but manipulate so that it makes more sense from an x,y map perspective, rather than a 2D array
+        coordsTextView.setText("" + inCoords[1] + "," + (gameData.getYMax()-inCoords[0]));
     }
 
     public void updateAreaInfo()
     {
+        //update from current player pos
         setDescription(gameData.getArea(gameData.getPlayer().getPosition()).getDescription());
         setPlayerPos(gameData.getArea(gameData.getPlayer().getPosition()).isTown());
         setStarred(gameData.getArea(gameData.getPlayer().getPosition()).getStarred());
         setCoords(gameData.getPlayer().getPosition());
     }
 
-    public void setAreaInfo(Area area)
+    public void setAreaInfo(Area inArea)
     {
+        //update from selected area from overview
+        area = inArea;
         setDescription(area.getDescription());
         setPlayerPos(area.isTown());
         setStarred(area.getStarred());
