@@ -1,4 +1,4 @@
-package com.example.tristan.prac05;
+package com.example.tfazio.prac05;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -79,9 +79,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-               cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                           
-               startActivityForResult(cameraIntent,REQUEST_THUMBNAIL);
+                cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                startActivityForResult(cameraIntent,REQUEST_THUMBNAIL);
             }
         });
 

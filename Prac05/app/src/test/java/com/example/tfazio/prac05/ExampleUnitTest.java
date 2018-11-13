@@ -1,4 +1,4 @@
-package com.example.tristan.prac05;
+package com.example.tfazio.prac05;
 
 import org.junit.Test;
 

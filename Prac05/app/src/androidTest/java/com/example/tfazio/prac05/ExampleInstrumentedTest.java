@@ -1,4 +1,4 @@
-package com.example.tristan.prac05;
+package com.example.tfazio.prac05;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.tristan.prac05", appContext.getPackageName());
+        assertEquals("com.example.tfazio.prac05", appContext.getPackageName());
     }
 }
